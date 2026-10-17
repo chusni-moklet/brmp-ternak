@@ -1,7 +1,7 @@
 /**
  * data.js - Data Model & Benchmark Standar Peternakan
  * Be-Ternak / Moklet Sistem Manajemen Unggas Terpadu
- * Standard: KUB Pedaging & Lohmann Brown (Layer)
+ * Standard: KUB Pedaging & KUB Petelur
  */
 
 const FARM_DATA = {
@@ -19,7 +19,7 @@ const FARM_DATA = {
     activeBlock: "Blok A - Kandang KUB Pedaging (10.000 Ekor)",
     blocks: [
       { id: "BLOK-A", name: "Blok A - Kandang KUB Pedaging (10.000 Ekor)", type: "broiler", capacity: 10000 },
-      { id: "BLOK-B", name: "Blok B - Semi-Modern Baterai (10.000 Ekor)", type: "layer", capacity: 10000 }
+      { id: "BLOK-B", name: "Blok B - Baterai KUB Petelur (10.000 Ekor)", type: "layer", capacity: 10000 }
     ]
   },
 
@@ -132,9 +132,9 @@ const FARM_DATA = {
     ]
   },
 
-  // 2. Modul Petelur (Layer)
+  // 2. Modul KUB Petelur
   layer: {
-    strain: "Lohmann Brown",
+    strain: "KUB Petelur",
     currentAgeWeeks: 46,
     initialPopulation: 10000,
     currentPopulation: 9780,

@@ -1,6 +1,6 @@
 /**
  * app.js - Controller Logika Interaktif Be-Ternak (Moklet)
- * Mendukung 2 Menu Utama: KUB Pedaging & Layer (Petelur)
+ * Mendukung 2 Menu Utama: KUB Pedaging & KUB Petelur
  * Sesuai Dokumen Spesifikasi Desain & Standar Anti-Slop
  */
 
@@ -85,7 +85,7 @@
   }
 
   // =========================================================================
-  // 2. Perpindahan 2 Menu Utama (Broiler vs Petelur)
+  // 2. Perpindahan 2 Menu Utama (KUB Pedaging vs KUB Petelur)
   // =========================================================================
   function switchModule(moduleName) {
     currentModule = moduleName;
@@ -130,7 +130,7 @@
       if (panelLayer) panelLayer.classList.add('active');
       if (panelBroiler) panelBroiler.classList.remove('active');
 
-      if (pageHeading) pageHeading.textContent = `Dashboard Operasional: ${FARM_DATA.farmInfo.name} — Petelur`;
+      if (pageHeading) pageHeading.textContent = `Dashboard Operasional: ${FARM_DATA.farmInfo.name} — KUB Petelur`;
       if (pageSubHeading) pageSubHeading.textContent = 'Monitoring produksi telur harian, mutu kerabang, rasio pakan, dan proyeksi afkir.';
       if (blockSelect) blockSelect.value = 'BLOK-B';
 
@@ -212,7 +212,7 @@
       if (modalTabLayer) modalTabLayer.classList.remove('active');
       updateBroilerCalc();
     } else {
-      modalTitle.textContent = 'Input Panen Harian — Modul Petelur (Layer)';
+      modalTitle.textContent = 'Input Panen Harian — Modul KUB Petelur';
       modalSubTitle.textContent = 'Catat hasil panen telur utuh, retak, kotor, dan pakan harian.';
       formBroilerFields.style.display = 'none';
       formLayerFields.style.display = 'grid';
@@ -549,7 +549,7 @@
           showToast('Beralih ke Blok A: Kandang KUB Pedaging');
         } else if (val === 'BLOK-B') {
           switchModule('layer');
-          showToast('Beralih ke Blok B: Baterai Semi-Modern Petelur');
+          showToast('Beralih ke Blok B: Baterai KUB Petelur');
         } else {
           showToast('Menampilkan seluruh populasi kandang abah suar Farm');
         }

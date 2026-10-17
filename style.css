@@ -185,25 +185,73 @@ img {
 .site-nav-links {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: clamp(0.4rem, 1vw, 1.15rem);
   list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-nav-links li {
+  flex-shrink: 0;
 }
 
 .site-nav-links a {
-  font-size: 0.88rem;
+  font-size: 0.84rem;
   font-weight: 600;
   color: #CBD5E1;
-  transition: color var(--transition-fast);
-  padding: 0.35rem 0.25rem;
+  transition: all var(--transition-fast);
+  padding: 0.45rem 0.65rem;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  text-decoration: none;
 }
 
 .site-nav-links a:hover {
-  color: var(--color-accent);
+  color: #FFFFFF;
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .site-nav-links a.active-link {
   color: var(--color-accent);
-  border-bottom: 2px solid var(--color-accent);
+  background-color: rgba(236, 167, 21, 0.12);
+}
+
+.site-nav-links .nav-live-link {
+  color: var(--color-accent) !important;
+  font-weight: 700;
+  background-color: rgba(236, 167, 21, 0.1);
+  border: 1px solid rgba(236, 167, 21, 0.3);
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius-full);
+}
+
+.site-nav-links .nav-live-link:hover {
+  background-color: rgba(236, 167, 21, 0.2);
+  border-color: rgba(236, 167, 21, 0.5);
+  color: #FFFFFF !important;
+}
+
+.site-nav-links .nav-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  box-shadow: 0 0 6px var(--color-accent);
+  animation: pulseLiveDot 1.8s infinite ease-in-out;
+}
+
+@keyframes pulseLiveDot {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 0.6;
+  }
 }
 
 .site-nav-actions {
@@ -225,6 +273,8 @@ img {
   border: 1px solid #D8960E;
   transition: all var(--transition-fast);
   box-shadow: 0 2px 8px rgba(236, 167, 21, 0.25);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .btn-nav-dashboard:hover {
@@ -1982,6 +2032,24 @@ dialog.custom-modal::backdrop {
    15. Responsive Breakpoints
    -------------------------------------------------------------------------- */
 @media (max-width: 1024px) {
+  /* Navbar switches cleanly to mobile drawer when screen narrows */
+  .site-nav-links {
+    display: none;
+  }
+  .btn-mobile-toggle {
+    display: inline-flex;
+  }
+  .desktop-nav-text {
+    display: none;
+  }
+  .mobile-nav-text {
+    display: inline;
+  }
+  .mobile-nav-drawer {
+    display: flex;
+    top: 70px;
+  }
+
   .hero-container {
     grid-template-columns: 1fr;
     gap: 2.5rem;

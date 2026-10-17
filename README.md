@@ -1,6 +1,6 @@
 # Be-Ternak (Moklet 2.0) — Platform Manajemen Peternakan Unggas Presisi
 
-Platform software manajemen peternakan unggas terpadu khusus untuk peternak **KUB Pedaging** dan **Layer (Petelur)**. Dirancang untuk kontrol presisi *Feed Conversion Ratio* (FCR), *Hen-Day Production* (HDP), stok pakan, dan deteksi anomali kematian unggas sesuai standar agribisnis modern.
+Platform software manajemen peternakan unggas terpadu khusus untuk peternak **KUB Pedaging** dan **KUB Petelur**. Dirancang untuk kontrol presisi *Feed Conversion Ratio* (FCR), *Hen-Day Production* (HDP), stok pakan, dan deteksi anomali kematian unggas sesuai standar agribisnis modern.
 
 ![Be-Ternak Preview](dashboard_broiler.png)
 
@@ -16,14 +16,14 @@ Platform software manajemen peternakan unggas terpadu khusus untuk peternak **KU
   - Telemetri sensor IoT kandang: Suhu (°C), Kelembaban (*Relative Humidity* / RH), Gas Amonia (ppm), dan status aktivasi *Inverter Fan*.
   - Proyeksi jadwal muat panen livebird dan estimasi kecukupan stok pakan finisher.
 
-- **Modul Petelur (Layer - Baterai Semi-Modern)**:
+- **Modul KUB Petelur (Baterai Semi-Modern)**:
   - Monitoring persentase *Hen-Day Production* (HDP) puncak (94.6%).
   - Total panen butir harian dan konversi rak telur standar (*Egg Tray* 30 butir).
   - Klasifikasi mutu telur terperinci: Telur Grade A Utuh, Retak / Kerabang Tipis, dan Telur Kotor.
   - Inventaris stok bahan pakan (Konsentrat 35%, Jagung Pipil KA 13.8%, Dedak Halus) dan proyeksi afkir unggas.
 
 ### 2. Antarmuka Lapangan & Mobile-First Experience
-- **Sticky Mobile Bottom Quick Bar**: Akses langsung ke modul KUB Pedaging, modul Petelur, dan tombol sentral **`+ Catat`**.
+- **Sticky Mobile Bottom Quick Bar**: Akses langsung ke modul KUB Pedaging, modul KUB Petelur, dan tombol sentral **`+ Catat`**.
 - **Formulir Input Harian Cepat**: Native `<dialog>` dengan transisi *modal pop-in*, kalkulasi live otomatis (ADG & HDP/Tray), serta segment switcher modul.
 - **Tabel Responsif Lapangan**: Bantuan indikator geser horizontal dengan font mono presisi tinggi.
 - **Standar Desain Anti-Slop**: Kontras tinggi untuk penggunaan luar ruangan (*outdoor readability* WCAG AA 4.5:1 untuk teks dan 7:1 untuk metrik utama), radius sudut konsisten 8px, dan nol emoji generik (ikon SVG murni).
@@ -87,7 +87,7 @@ brmp-ternak/
 
 ## 📊 Standar Genetika & Parameter Teknis
 
-| Parameter | Modul KUB Pedaging | Modul Petelur (Lohmann Brown) |
+| Parameter | Modul KUB Pedaging | Modul KUB Petelur |
 | :--- | :--- | :--- |
 | **Metrik Utama** | FCR (Kumulatif: 1.48) | HDP (Puncak: 94.6%) |
 | **Satuan Bobot / Produksi** | BW: 2.18 kg/ekor | 18.920 Butir (630.6 Tray) |
