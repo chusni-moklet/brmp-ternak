@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grati-Ternak — Platform Manajemen Peternakan Broiler &amp; Petelur Presisi</title>
+  <meta name="description" content="Platform software manajemen peternakan unggas terpadu untuk ayam broiler (pedaging) dan layer (petelur). Kontrol FCR, Hen-Day Production, stok pakan, dan mortalitas secara presisi.">
+
+  <!-- Typography: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css?v=2.4">
+</head>
+<body>
+
+  <!-- ======================================================================
+       1. Public Website Sticky Navbar
+       ====================================================================== -->
+  <header class="site-navbar" role="banner">
+    <div class="site-navbar-container">
+      
+      <!-- Brand Logo -->
+      <a href="#beranda" class="site-brand" aria-label="Beranda Grati-Ternak">
+        <div class="site-brand-logo">TS</div>
+        <div class="site-brand-text">
+          <div class="site-brand-title">Ternak<span>Smart</span></div>
+          <div class="site-brand-sub">Grati Agrotech Platform</div>
+        </div>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="site-nav" aria-label="Navigasi Utama">
+        <ul class="site-nav-links">
+          <li><a href="#beranda">Beranda</a></li>
+          <li><a href="#fitur">Fitur Unggulan</a></li>
+          <li><a href="#modul-broiler">Modul Broiler</a></li>
+          <li><a href="#modul-layer">Modul Petelur</a></li>
+          <li><a href="#evaluasi">Evaluasi Lapangan</a></li>
+          <li><a href="#harga">Pilihan Paket</a></li>
+          <li><a href="#dashboard" style="color: var(--color-accent); font-weight: 700;">Dashboard Live</a></li>
+        </ul>
+      </nav>
+
+      <!-- Action CTA & Mobile Hamburger -->
+      <div class="site-nav-actions">
+        <a href="#dashboard" class="btn-nav-dashboard" id="btnHeaderToDashboard">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+          <span class="desktop-nav-text">Buka Dashboard</span>
+          <span class="mobile-nav-text">Dashboard</span>
+        </a>
+
+        <!-- Mobile Hamburger Button -->
+        <button type="button" class="btn-mobile-toggle" id="btnMobileNavToggle" aria-label="Buka Menu Navigasi" aria-expanded="false" aria-controls="mobileNavDrawer">
+          <svg class="icon-hamburger" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+          <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav-drawer" id="mobileNavDrawer" aria-hidden="true">
+      <ul class="mobile-nav-list">
+        <li><a href="#beranda" class="mobile-nav-link">Beranda</a></li>
+        <li><a href="#fitur" class="mobile-nav-link">Fitur Unggulan</a></li>
+        <li><a href="#modul-broiler" class="mobile-nav-link">Modul Broiler</a></li>
+        <li><a href="#modul-layer" class="mobile-nav-link">Modul Petelur</a></li>
+        <li><a href="#evaluasi" class="mobile-nav-link">Evaluasi Lapangan</a></li>
+        <li><a href="#harga" class="mobile-nav-link">Pilihan Paket</a></li>
+        <li><a href="#dashboard" class="mobile-nav-link highlight">Dashboard Operasional Live</a></li>
+      </ul>
+      <div class="mobile-nav-footer">
+        <button type="button" class="btn-mobile-record" id="btnMobileQuickRecord">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+          <span>+ Catat Data Harian</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================================================================
+       2. Hero Section with Real Photo & Live Simulator Preview
+       ====================================================================== -->
+  <section class="hero-section" id="beranda">
+    <div class="hero-bg-media">
+      <img src="assets/hero-farm.jpg" alt="Interior Kandang Unggas Modern Closed House Bersih" class="hero-bg-img">
+      <div class="hero-gradient-overlay"></div>
+    </div>
+
+    <div class="hero-container">
+      <!-- Left Column: Copy & Actions -->
+      <div class="hero-content">
+        <div class="hero-badge-pill">
+          <span class="dot"></span>
+          <strong>TernakSmart 2.0</strong> &bull; Solusi Khusus Peternak Broiler &amp; Petelur
+        </div>
+
+        <h1 class="hero-headline">
+          Pencatatan Kandang Terarah, <span>Panen Terukur</span> &amp; Profit Maksimal
+        </h1>
+
+        <p class="hero-subhead">
+          Tinggalkan catatan kertas yang rentan tercecer. Kendalikan Feed Conversion Ratio (FCR), Hen-Day Production (HDP), stok pakan, dan deteksi anomali kematian unggas dalam satu sistem terintegrasi standar genetika resmi.
+        </p>
+
+        <div class="hero-btn-group">
+          <a href="#dashboard" class="btn-hero-primary" id="btnHeroOpenDashboard">
+            <span>Buka Dashboard Operasional</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a href="#modul-broiler" class="btn-hero-outline">
+            <span>Pelajari Spesifikasi Modul</span>
+          </a>
+        </div>
+
+        <div class="hero-proof-points">
+          <div class="proof-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Standar Strain Cobb 500 &amp; Lohmann</span>
+          </div>
+          <div class="proof-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Bekerja Offline &bull; Cloud Auto-Sync</span>
+          </div>
+          <div class="proof-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Zero-Slop Verified</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Live Simulator Card -->
+      <div class="hero-simulator-wrapper">
+        <div class="hero-simulator-card">
+          <div class="sim-header">
+            <div class="sim-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+              <span>Simulasi Cepat Kandang</span>
+            </div>
+            <span class="sim-badge">Live Preview</span>
+          </div>
+
+          <!-- Tab Switcher inside Hero -->
+          <div class="sim-switcher" role="tablist">
+            <button type="button" class="sim-tab active" id="simTabBroiler">Broiler (Pedaging)</button>
+            <button type="button" class="sim-tab" id="simTabLayer">Layer (Petelur)</button>
+          </div>
+
+          <!-- Dynamic Metric Preview in Hero -->
+          <div class="sim-metric-row" id="simMetricGrid">
+            <div class="sim-box">
+              <div class="sim-box-label" id="simLbl1">FCR Kumulatif</div>
+              <div class="sim-box-val" id="simVal1">1.48</div>
+              <div class="sim-box-diff" id="simDiff1">-0.06 pt Efisien</div>
+            </div>
+            <div class="sim-box">
+              <div class="sim-box-label" id="simLbl2">Bobot Sampling (BW)</div>
+              <div class="sim-box-val" id="simVal2">2.18 kg</div>
+              <div class="sim-box-diff" id="simDiff2">+80g vs target</div>
+            </div>
+            <div class="sim-box">
+              <div class="sim-box-label" id="simLbl3">Mortalitas</div>
+              <div class="sim-box-val" id="simVal3">1.12%</div>
+              <div class="sim-box-diff" id="simDiff3">Batas &lt; 3.0%</div>
+            </div>
+            <div class="sim-box">
+              <div class="sim-box-label" id="simLbl4">Indeks Performa (IP)</div>
+              <div class="sim-box-val" id="simVal4">418</div>
+              <div class="sim-box-diff" id="simDiff4">Grade Istimewa</div>
+            </div>
+          </div>
+
+          <div class="sim-cta-bottom">
+            <a href="#dashboard" class="btn-sim-launch" id="btnSimLaunch">
+              Buka Dashboard Lengkap abah suar Farm &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       3. 4-Column Feature Icons Section
+       ====================================================================== -->
+  <section class="features-section" id="fitur">
+    <div class="section-container">
+      <div class="section-header-center">
+        <span class="section-tag">Kapabilitas Unggulan</span>
+        <h2 class="section-title">Dibangun Khusus Menjawab Kebutuhan Riil Peternak</h2>
+        <p class="section-desc">Setiap fitur dirancang dari pengalaman langsung di kandang: ramah satu jempol pekerja, terbaca di bawah terik matahari, dan bebas ornamen yang membingungkan.</p>
+      </div>
+
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <article class="feature-card">
+          <div class="feature-icon-wrapper">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          </div>
+          <h3>Tracking Broiler Presisi</h3>
+          <p>Hitung Feed Conversion Ratio (FCR) harian &amp; kumulatif otomatis dari konsumsi pakan vs bobot sampling ayam hidup.</p>
+          <div class="feature-highlight-meta">
+            <span>FCR Otomatis &bull; Standar Cobb 500</span>
+          </div>
+        </article>
+
+        <!-- Feature 2 -->
+        <article class="feature-card">
+          <div class="feature-icon-wrapper gold">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 2v3"/></svg>
+          </div>
+          <h3>Hen-Day Production (HDP)</h3>
+          <p>Pantau persentase telur harian dari populasi layer dan bandingkan langsung dengan kurva standar strain Lohmann Brown.</p>
+          <div class="feature-highlight-meta">
+            <span>Konversi Rak 30 Butir/Tray</span>
+          </div>
+        </article>
+
+        <!-- Feature 3 -->
+        <article class="feature-card">
+          <div class="feature-icon-wrapper">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/></svg>
+          </div>
+          <h3>Sensor Lingkungan IoT</h3>
+          <p>Pantau suhu, kelembaban (RH), amonia, dan ventilasi kipas inverter kandang tertutup (closed house) secara realtime.</p>
+          <div class="feature-highlight-meta">
+            <span>Peringatan Dini Heat Stress</span>
+          </div>
+        </article>
+
+        <!-- Feature 4 -->
+        <article class="feature-card">
+          <div class="feature-icon-wrapper gold">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+          </div>
+          <h3>Pencatatan Offline &bull; Cloud Sync</h3>
+          <p>Pekerja kandang tetap bisa menginput rekaman panen tanpa sinyal. Data otomatis tersinkronisasi saat terhubung internet.</p>
+          <div class="feature-highlight-meta">
+            <span>Bebas Risiko Kehilangan Data</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       4. Split Feature 1: Modul Ayam Broiler (Pedaging)
+       ====================================================================== -->
+  <section class="split-section bg-light" id="modul-broiler">
+    <div class="section-container">
+      <div class="split-grid">
+        
+        <!-- Media Column -->
+        <div class="split-media-col">
+          <div class="split-media-card">
+            <img src="assets/broiler.jpg" alt="Ayam Broiler Sehat di Kandang Modern Closed House">
+            <div class="floating-kpi-badge">
+              <div class="badge-metric-col">
+                <span class="badge-label">FCR Kumulatif Realtime</span>
+                <span class="badge-value">1.48 (Target 1.54)</span>
+              </div>
+              <div class="badge-metric-col" style="text-align: right;">
+                <span class="badge-label">Indeks Performa (IP)</span>
+                <span class="badge-value" style="color: #10B981;">418 (Istimewa)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content Column -->
+        <div class="split-content">
+          <span class="section-tag">Modul Khusus Ayam Broiler</span>
+          <h2>Kalkulasi FCR Presisi, Kontrol Deplesi &amp; Bonus Kemitraan Maksimal</h2>
+          <p class="lead-text">
+            Siklus ayam pedaging berlangsung cepat (30-35 hari). Selisih 0.05 poin pada FCR dapat menentukan apakah Anda mengantongi untung belasan juta atau menelan kerugian pakan.
+          </p>
+
+          <div class="split-benefit-list">
+            <div class="benefit-item">
+              <div class="benefit-icon-bullet">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div>
+                <h4>Kalkulasi FCR Harian &amp; Kumulatif Otomatis</h4>
+                <p>Mengurangi waktu hitung manual. Ketahui persis berapa ton pakan yang berhasil dihemat setiap hari siklus.</p>
+              </div>
+            </div>
+
+            <div class="benefit-item">
+              <div class="benefit-icon-bullet">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div>
+                <h4>Deteksi Cepat Batas Toleransi Mortalitas</h4>
+                <p>Ambang batas &lt; 3.0% standar kemitraan. Peringatan dini jika ada lonjakan kematian mendadak per blok kandang.</p>
+              </div>
+            </div>
+
+            <div class="benefit-item">
+              <div class="benefit-icon-bullet">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div>
+                <h4>Estimasi Jadwal Panen &amp; Muat Truk Livebird</h4>
+                <p>Proyeksi total tonase siap angkut, kecukupan sisa pakan finisher, dan kesiapan surat jalan pengiriman.</p>
+              </div>
+            </div>
+          </div>
+
+          <a href="#dashboard" class="btn-primary-action" id="btnGoToBroiler">
+            <span>Buka Dashboard Operasional Broiler</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       5. Split Feature 2: Modul Ayam Petelur (Layer)
+       ====================================================================== -->
+  <section class="split-section bg-white" id="modul-layer">
+    <div class="section-container">
+      <div class="split-grid">
+        
+        <!-- Content Column -->
+        <div class="split-content">
+          <span class="section-tag" style="background-color: var(--color-accent-subtle); color: #B45309;">Modul Khusus Ayam Petelur</span>
+          <h2>Pantau HDP Harian, Mutu Kerabang &amp; Waktu Afkir Tepat Sasaran</h2>
+          <p class="lead-text">
+            Peternakan petelur adalah maraton jangka panjang (hingga 80+ minggu). Ketahui secara presisi kapan produktivitas ayam turun di bawah batas impas biaya pakan untuk keputusan peremajaan terbaik.
+          </p>
+
+          <div class="split-benefit-list">
+            <div class="benefit-item">
+              <div class="benefit-icon-bullet" style="background-color: var(--color-accent-subtle); color: #B45309;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div>
+                <h4>Monitoring Hen-Day Production (HDP) Real-Time</h4>
+                <p>Hitung otomatis rasio butir telur terhadap populasi ayam hidup. Bandingkan dengan kurva standar Lohmann Brown.</p>
+              </div>
+            </div>
+
+            <div class="benefit-item">
+              <div class="benefit-icon-bullet" style="background-color: var(--color-accent-subtle); color: #B45309;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div>
+                <h4>Klasifikasi Telur Grade A, Retak &amp; Kotor</h4>
+                <p>Catat rincian telur utuh bersih (98.4%), cangkang tipis, dan abnormal untuk evaluasi efisiensi penanganan kandang.</p>
+              </div>
+            </div>
+
+            <div class="benefit-item">
+              <div class="benefit-icon-bullet" style="background-color: var(--color-accent-subtle); color: #B45309;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div>
+                <h4>Manajemen Stok Pakan Campuran &amp; Egg Tray</h4>
+                <p>Kontrol formulasi konsentrat layer 35%, jagung giling, dedak padi, serta persediaan rak telur siap kirim ke agen.</p>
+              </div>
+            </div>
+          </div>
+
+          <a href="#dashboard" class="btn-primary-action" id="btnGoToLayer" style="background-color: #B45309; border-color: #92400E;">
+            <span>Buka Dashboard Operasional Petelur</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <!-- Media Column -->
+        <div class="split-media-col">
+          <div class="split-media-card">
+            <img src="assets/layer-eggs.jpg" alt="Telur Segar Berkualitas di Kandang Ayam Petelur Modern">
+            <div class="floating-kpi-badge">
+              <div class="badge-metric-col">
+                <span class="badge-label">HDP Puncak (Peak)</span>
+                <span class="badge-value">94.6% (+2.6%)</span>
+              </div>
+              <div class="badge-metric-col" style="text-align: right;">
+                <span class="badge-label">Panen Hari Ini</span>
+                <span class="badge-value" style="color: #FCD34D;">18.920 Butir (630 Tray)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       6. Field Case Studies (Evaluasi Lapangan)
+       ====================================================================== -->
+  <section class="testimonials-section" id="evaluasi">
+    <div class="section-container">
+      <div class="section-header-center">
+        <span class="section-tag">Evaluasi Teknis Lapangan</span>
+        <h2 class="section-title">Hasil Riil Peternak yang Telah Beralih</h2>
+        <p class="section-desc">Bukan testimoni kosong. Hasil evaluasi nyata berdasarkan peningkatan efisiensi pakan dan stabilitas performa kandang.</p>
+      </div>
+
+      <div class="testimonials-grid">
+        <article class="testimonial-card">
+          <p class="testimonial-quote">
+            "Sebelumnya catatan FCR baru dihitung setelah panen selesai, sering telat tahu kalau pakan boros. Dengan TernakSmart, FCR terpantau harian. Siklus kemarin tembus IP 418 dan dapat bonus kemitraan penuh."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar-text">AS</div>
+            <div>
+              <div class="author-name">abah suar</div>
+              <div class="author-farm">Pemilik Kandang Broiler 20.000 Ekor &bull; Pasuruan</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="testimonial-card">
+          <p class="testimonial-quote">
+            "Di petelur, menghitung konversi butir ke tray dan HDP setiap sore memakan waktu. Sekarang pekerja kandang cukup input angka via HP, laporan otomatis jadi dan siap dikirim ke pedagang telur."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar-text">NH</div>
+            <div>
+              <div class="author-name">Ibu Nurhayati</div>
+              <div class="author-farm">Peternak Layer Mandiri 15.000 Ekor &bull; Blitar</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="testimonial-card">
+          <p class="testimonial-quote">
+            "Pekerja kandang kami awalnya takut pakai aplikasi karena ribet. Ternyata tombolnya besar-besar dan ramah satu jempol. Bahkan saat listrik padam dan sinyal drop, input tetap aman tersimpan."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar-text">HW</div>
+            <div>
+              <div class="author-name">Bpk. Hendra Wijaya</div>
+              <div class="author-farm">Closed House Broiler 30.000 Ekor &bull; Sukabumi</div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       7. Pricing Section
+       ====================================================================== -->
+  <section class="pricing-section" id="harga">
+    <div class="section-container">
+      <div class="section-header-center">
+        <span class="section-tag">Investasi Terjangkau</span>
+        <h2 class="section-title">Pilihan Paket Sesuai Skala Peternakan</h2>
+        <p class="section-desc">Hemat jutaan rupiah dari efisiensi pakan dan pencegahan kematian ayam dengan sistem pencatatan yang terbukti akurat.</p>
+      </div>
+
+      <div class="pricing-grid">
+        
+        <!-- Plan 1 -->
+        <article class="pricing-card">
+          <div>
+            <h3 class="plan-name">Perintis</h3>
+            <p class="plan-desc">Untuk peternak mandiri 1-2 kandang kapasitas hingga 10.000 ekor.</p>
+            <div class="plan-price-row">
+              <span class="plan-currency">Rp</span>
+              <span class="plan-number">99.000</span>
+              <span class="plan-period">/ bulan</span>
+            </div>
+            <ul class="plan-features-list">
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Hingga 2 Blok Kandang</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Pencatatan Broiler atau Layer</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Kalkulasi FCR &amp; HDP Otomatis</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Ekspor Rekaman Format CSV</span>
+              </li>
+            </ul>
+          </div>
+          <a href="#dashboard" class="btn-plan">Coba Paket Perintis</a>
+        </article>
+
+        <!-- Plan 2 (Featured) -->
+        <article class="pricing-card featured">
+          <div class="pricing-ribbon">Paling Banyak Dipilih</div>
+          <div>
+            <h3 class="plan-name">Juragan Pro</h3>
+            <p class="plan-desc">Untuk peternak semi-closed house &amp; closed house hingga 30.000 ekor.</p>
+            <div class="plan-price-row">
+              <span class="plan-currency">Rp</span>
+              <span class="plan-number">249.000</span>
+              <span class="plan-period">/ bulan</span>
+            </div>
+            <ul class="plan-features-list">
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Hingga 6 Blok Kandang (Multi-Unit)</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Modul Broiler &amp; Petelur Sekaligus</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Telemetri Sensor IoT (Suhu &amp; Fan)</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Ekspor Laporan Cetak PDF Resmi</span>
+              </li>
+            </ul>
+          </div>
+          <a href="#dashboard" class="btn-plan">Pilih Paket Juragan Pro</a>
+        </article>
+
+        <!-- Plan 3 -->
+        <article class="pricing-card">
+          <div>
+            <h3 class="plan-name">Sultan Kemitraan</h3>
+            <p class="plan-desc">Untuk integrator, koperasi peternak, dan pemilik multi-farm besar.</p>
+            <div class="plan-price-row">
+              <span class="plan-currency">Rp</span>
+              <span class="plan-number">699.000</span>
+              <span class="plan-period">/ bulan</span>
+            </div>
+            <ul class="plan-features-list">
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Kandang &amp; Lokasi Tanpa Batas</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Portal Anak Kandang (ABK) Terpisah</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Buku Piutang &amp; Rekapitulasi Pengepul</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Dukungan Teknis Prioritas 24 Jam</span>
+              </li>
+            </ul>
+          </div>
+          <a href="#dashboard" class="btn-plan">Hubungi Konsultan Kemitraan</a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       8. Bottom CTA Banner
+       ====================================================================== -->
+  <section class="bottom-cta-section">
+    <div class="section-container">
+      <div class="bottom-cta-banner">
+        <h2>Tingkatkan Efisiensi Pakan &amp; Raih Keuntungan Panen Tertinggi</h2>
+        <p>
+          Bergabunglah bersama peternak modern di Pasuruan, Blitar, dan seluruh Indonesia yang telah mendigitalkan operasional kandang mereka.
+        </p>
+        <div class="bottom-cta-btn-group">
+          <a href="#dashboard" class="btn-hero-primary">
+            <span>Buka Dashboard Operasional Sekarang</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       9. LIVE OPERATIONAL DASHBOARD SECTION (2 Main Menus: Broiler & Petelur)
+       ====================================================================== -->
+  <section class="dashboard-live-section" id="dashboard" aria-label="Dashboard Operasional Langsung">
+    <div class="section-container">
+      
+      <!-- Dashboard Section Title Bar -->
+      <div class="dashboard-section-header">
+        <div style="display: flex; align-items: center; gap: 0.85rem; flex-wrap: wrap;">
+          <h2 style="font-size: 1.6rem; font-weight: 800; color: var(--color-text-title); letter-spacing: -0.4px;">
+            Dashboard Operasional Langsung
+          </h2>
+          <span class="dashboard-live-badge">
+            <span class="pulse"></span>
+            <span>Real-time Sistem Aktif</span>
+          </span>
+        </div>
+
+        <!-- 2 Main Menus Switcher Nav -->
+        <nav class="menu-switcher-nav" role="tablist" aria-label="Menu Utama Peternakan">
+          <button type="button" class="menu-tab-btn active" id="tabBtnBroiler" role="tab" aria-selected="true" aria-controls="panelBroiler">
+            <svg class="menu-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+            <span>Broiler (Pedaging)</span>
+            <span class="menu-badge">Hari 33</span>
+          </button>
+          <button type="button" class="menu-tab-btn" id="tabBtnLayer" role="tab" aria-selected="false" aria-controls="panelLayer">
+            <svg class="menu-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 2v3"/><path d="M12 21v1"/></svg>
+            <span>Layer (Petelur)</span>
+            <span class="menu-badge">HDP 94.6%</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- Dashboard Controls Card -->
+      <div class="dashboard-header-card">
+        <div class="dashboard-titles">
+          <h2 id="pageHeading">Dashboard Operasional: abah suar Farm</h2>
+          <p id="pageSubHeading">Kelola data pakan, sampling berat, deplesi, dan kesehatan unggas dengan akurasi tinggi.</p>
+        </div>
+
+        <div class="filter-action-bar">
+          <label for="blockSelect" class="visually-hidden" style="position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0,0,0,0);">Pilih Blok Kandang</label>
+          <select class="select-filter" id="blockSelect" title="Pilih Blok Kandang">
+            <option value="BLOK-A" selected>Blok A - Closed House (10.000 Ekor)</option>
+            <option value="BLOK-B">Blok B - Semi-Modern Baterai (10.000 Ekor)</option>
+            <option value="ALL">Semua Blok (20.000 Ekor)</option>
+          </select>
+
+          <button type="button" class="btn-primary-action" id="btnInputHeader">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+            <span>+ Input Harian</span>
+          </button>
+
+          <div class="filter-action-bar-exports">
+            <button type="button" class="btn-secondary" id="btnExportExcel" title="Unduh CSV Data Rekaman">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+              <span>Ekspor CSV</span>
+            </button>
+
+            <button type="button" class="btn-secondary" id="btnExportPDF" title="Cetak Format Dokumen PDF">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
+              <span>Ekspor PDF</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================================================================
+           PANEL 1: BROILER (PEDAGING)
+           ================================================================== -->
+      <div class="view-panel active" id="panelBroiler" role="tabpanel" aria-labelledby="tabBtnBroiler">
+        
+        <!-- Top 4 KPI Cards -->
+        <div class="kpi-grid">
+          <article class="metric-card accent-gold">
+            <div class="metric-card-header">
+              <span class="metric-title">FCR Kumulatif</span>
+              <div class="metric-icon-box" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              </div>
+            </div>
+            <div class="metric-value-row">
+              <span class="metric-number" id="broilerFcrVal">1.48</span>
+              <span class="metric-badge badge-optimal">-0.06 pt (Efisien)</span>
+            </div>
+            <p class="metric-subtext">Target Standar Kemitraan: <strong>1.54</strong> &bull; Hemat ~1.2 Ton Pakan</p>
+          </article>
+
+          <article class="metric-card">
+            <div class="metric-card-header">
+              <span class="metric-title">Rata-rata Bobot (BW)</span>
+              <div class="metric-icon-box" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg>
+              </div>
+            </div>
+            <div class="metric-value-row">
+              <span class="metric-number" id="broilerBwVal">2.18</span>
+              <span class="metric-unit">kg / ekor</span>
+              <span class="metric-badge badge-optimal">+80g vs target</span>
+            </div>
+            <p class="metric-subtext">Sampling 120 ekor hari ini &bull; ADG: <strong>66 gr/hari</strong></p>
+          </article>
+
+          <article class="metric-card">
+            <div class="metric-card-header">
+              <span class="metric-title">Mortalitas Kumulatif</span>
+              <div class="metric-icon-box" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
+              </div>
+            </div>
+            <div class="metric-value-row">
+              <span class="metric-number" id="broilerMortalityVal">1.12%</span>
+              <span class="metric-unit">(224 ekor)</span>
+              <span class="metric-badge badge-optimal">Sangat Baik</span>
+            </div>
+            <p class="metric-subtext">Batas Toleransi: <strong>&lt; 3.0%</strong> &bull; Kondisi Imunitas Prima</p>
+          </article>
+
+          <article class="metric-card">
+            <div class="metric-card-header">
+              <span class="metric-title">Indeks Performa (IP)</span>
+              <div class="metric-icon-box" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+            </div>
+            <div class="metric-value-row">
+              <span class="metric-number" id="broilerIpVal">418</span>
+              <span class="metric-badge badge-optimal">Istimewa (&gt;400)</span>
+            </div>
+            <p class="metric-subtext">Umur Panen: <strong>Hari 33</strong> &bull; Berhak Bonus Kemitraan +</p>
+          </article>
+        </div>
+
+        <!-- Middle 2 Widgets -->
+        <div class="middle-grid">
+          <!-- Sensor IoT -->
+          <article class="widget-card">
+            <div class="widget-header">
+              <div class="widget-title-group">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/></svg>
+                <h3>Sensor Lingkungan Kandang IoT</h3>
+              </div>
+              <span class="widget-status-pill badge-optimal">Normal &bull; Live Telemetri</span>
+            </div>
+
+            <div class="sensor-metric-list">
+              <div class="sensor-box">
+                <div class="sensor-label">Suhu Dalam Kandang</div>
+                <div class="sensor-val" id="sensorTemp">26.8°C</div>
+                <div class="sensor-target">Target: 26.0 - 28.0°C</div>
+              </div>
+
+              <div class="sensor-box">
+                <div class="sensor-label">Kelembaban Relatif (RH)</div>
+                <div class="sensor-val" id="sensorHumidity">62%</div>
+                <div class="sensor-target">Target Standar: 60 - 70%</div>
+              </div>
+
+              <div class="sensor-box">
+                <div class="sensor-label">Kecepatan Angin (Wind Chill)</div>
+                <div class="sensor-val" id="sensorWind">2.1 m/s</div>
+                <div class="sensor-target">Target: 2.0 - 2.5 m/s</div>
+              </div>
+
+              <div class="sensor-box">
+                <div class="sensor-label">Kadar Gas Amonia</div>
+                <div class="sensor-val" id="sensorAmmonia">12 ppm</div>
+                <div class="sensor-target">Ambang Batas: &lt; 20 ppm</div>
+              </div>
+            </div>
+
+            <div class="fan-status-bar">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 12c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5Z"/><path d="M12 12c0-2.76 2.24-5 5-5s5 2.24 5 5-2.24 5-5 5-5-2.24-5-5Z"/><path d="M12 12c0 2.76-2.24 5-5 5s-5-2.24-5-5 2.24-5 5-5 5 2.24 5 5Z"/><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5Z"/></svg>
+              <span>Kipas Inverter Fan 1-4 Aktif &bull; Ventilasi Closed House Optimal</span>
+            </div>
+          </article>
+
+          <!-- Panen Projection -->
+          <article class="widget-card">
+            <div class="widget-header">
+              <div class="widget-title-group">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="m9 16 2 2 4-4"/></svg>
+                <h3>Jadwal &amp; Proyeksi Panen Livebird Optimal</h3>
+              </div>
+              <span class="widget-status-pill badge-warning">Siap Panen 2 Hari</span>
+            </div>
+
+            <div class="projection-items">
+              <div class="projection-row">
+                <span class="projection-label">Estimasi Tonase Total</span>
+                <span class="projection-val">43.16 Ton</span>
+              </div>
+              <div class="projection-row">
+                <span class="projection-label">Populasi Siap Muat (Ekor)</span>
+                <span class="projection-val">19.776 Ekor</span>
+              </div>
+              <div class="projection-row">
+                <span class="projection-label">Sisa Stok Pakan Finisher</span>
+                <span class="projection-val">84 Sak (Cukup 2.2 Hari)</span>
+              </div>
+              <div class="projection-status-box">
+                <span>Status Dokumen: Surat Jalan Siap</span>
+                <span>Truk Bak 1 &amp; 2 Terjadwal</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Table Card -->
+        <article class="table-card">
+          <div class="table-header">
+            <div class="table-title-group">
+              <h3>Riwayat Pencatatan Harian (Recording Kandang Broiler)</h3>
+              <p>Data konsumsi pakan, deplesi, dan pertambahan bobot harian.</p>
+            </div>
+            <button type="button" class="btn-primary-action" id="btnRecordBroilerBottom">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+              <span>+ Catat Hari Ini</span>
+            </button>
+          </div>
+
+          <div class="mobile-table-hint">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            <span>Geser tabel ke samping untuk melihat detail pakan, bobot, dan mortalitas</span>
+          </div>
+
+          <div class="table-container">
+            <table class="data-table" id="tableBroiler">
+              <thead>
+                <tr>
+                  <th scope="col">Tanggal</th>
+                  <th scope="col">Umur (Hari)</th>
+                  <th scope="col">Pakan (Sak / Kg)</th>
+                  <th scope="col">Mortalitas (Ekor)</th>
+                  <th scope="col">Rata-rata Bobot (BW)</th>
+                  <th scope="col">FCR Kumulatif</th>
+                  <th scope="col">Suhu / RH</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody id="tbodyBroiler">
+                <!-- Dynamically populated from data.js -->
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- ==================================================================
+           PANEL 2: LAYER (PETELUR)
+           ================================================================== -->
+      <div class="view-panel" id="panelLayer" role="tabpanel" aria-labelledby="tabBtnLayer">
+        
+        <!-- Top 4 KPI Cards -->
+        <div class="kpi-grid">
+          <article class="metric-card accent-gold">
+            <div class="metric-card-header">
+              <span class="metric-title">Hen-Day Production (HDP)</span>
+              <div class="metric-icon-box" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              </div>
+            </div>
+            <div class="metric-value-row">
+              <span class="metric-number" id="layerHdpVal">94.6%</span>
+              <span class="metric-badge badge-optimal">Puncak (Peak)</span>
+            </div>
+            <p class="metric-subtext">Standar Lohmann Brown: <strong>92.0%</strong> &bull; (+2.6% Unggul)</p>
+          </article>
+
+          <article class="metric-card">
+            <div class="metric-card-header">
+              <span class="metric-title">Produksi Telur Harian</span>
+              <div class="metric-icon-box" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 2v3"/></svg>
+              </div>
+            </div>
+            <div class="metric-value-row">
+              <span class="metric-number" id="layerEggVal">18.920</span>
+              <span class="metric-unit">butir</span>
+              <span class="metric-badge badge-optimal">Grade A 98.4%</span>
+            </div>
+            <p class="metric-subtext">Konversi Rak Telur: <strong>630.6 Tray</strong> (30 butir/tray)</p>
+          </article>
+
+          <article class="metric-card">
+            <div class="metric-card-header">
+              <span class="metric-title">Pakan per Butir Telur</span>
+              <div class="metric-icon-box" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 2 20 20"/><path d="M12 2a10 10 0 0 1 10 10c0 3.25-1.55 6.14-3.95 7.95"/><path d="M2.05 10.05A10 10 0 0 1 12 2"/><path d="M14.05 14.05A4 4 0 0 1 8 8"/></svg>
+              </div>
+            </div>
+            <div class="metric-value-row">
+              <span class="metric-number" id="layerFeedPerEggVal">111</span>
+              <span class="metric-unit">gram / butir</span>
+              <span class="metric-badge badge-optimal">Hemat 3 gr</span>
+            </div>
+            <p class="metric-subtext">Total Pakan: <strong>2.100 kg</strong> &bull; Target Standar: 114 gr/butir</p>
+          </article>
+
+          <article class="metric-card">
+            <div class="metric-card-header">
+              <span class="metric-title">Proyeksi Afkir Cermat</span>
+              <div class="metric-icon-box" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+            </div>
+            <div class="metric-value-row">
+              <span class="metric-number" id="layerAfkirVal">Mgg 78</span>
+              <span class="metric-badge badge-info">Sisa 32 Mgg</span>
+            </div>
+            <p class="metric-subtext">Umur Saat Ini: <strong>Minggu ke-46</strong> &bull; Margin Masih Prima</p>
+          </article>
+        </div>
+
+        <!-- Middle 2 Widgets -->
+        <div class="middle-grid">
+          <!-- Klasifikasi Mutu -->
+          <article class="widget-card">
+            <div class="widget-header">
+              <div class="widget-title-group">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                <h3>Klasifikasi Kualitas Telur Hari Ini</h3>
+              </div>
+              <span class="widget-status-pill badge-optimal">Total: 18.920 Butir</span>
+            </div>
+
+            <div class="quality-progress-bar" title="Rasio Mutu: Grade A 98.4%, Retak 1.2%, Kotor 0.4%">
+              <div class="bar-segment segment-grade-a" style="width: 98.4%;"></div>
+              <div class="bar-segment segment-retak" style="width: 1.2%;"></div>
+              <div class="bar-segment segment-abnormal" style="width: 0.4%;"></div>
+            </div>
+
+            <div class="quality-breakdown-legend">
+              <div class="legend-item">
+                <div class="legend-title">
+                  <span class="legend-color-dot" style="background-color: var(--color-primary);"></span>
+                  <span>Grade A (Utuh)</span>
+                </div>
+                <div class="legend-value" id="countGradeA">18.618</div>
+                <div class="legend-pct">98.4% Bersih &amp; Utuh</div>
+              </div>
+
+              <div class="legend-item">
+                <div class="legend-title">
+                  <span class="legend-color-dot" style="background-color: var(--color-accent);"></span>
+                  <span>Retak / Kerabang</span>
+                </div>
+                <div class="legend-value" id="countRetak">220</div>
+                <div class="legend-pct">1.2% Cangkang Tipis</div>
+              </div>
+
+              <div class="legend-item">
+                <div class="legend-title">
+                  <span class="legend-color-dot" style="background-color: #EF4444;"></span>
+                  <span>Telur Kotor</span>
+                </div>
+                <div class="legend-value" id="countKotor">82</div>
+                <div class="legend-pct">0.4% Abnormal / Kotor</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Inventaris Pakan -->
+          <article class="widget-card">
+            <div class="widget-header">
+              <div class="widget-title-group">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+                <h3>Inventaris Pakan Layer &amp; Egg Tray</h3>
+              </div>
+              <span class="widget-status-pill badge-optimal">Stok Aman &gt; 14 Hari</span>
+            </div>
+
+            <div class="projection-items">
+              <div class="projection-row">
+                <span class="projection-label">Konsentrat Layer (Campuran 35%)</span>
+                <span class="projection-val">142 Sak</span>
+              </div>
+              <div class="projection-row">
+                <span class="projection-label">Jagung Giling Pipil (KA 13.8%)</span>
+                <span class="projection-val">8.4 Ton</span>
+              </div>
+              <div class="projection-row">
+                <span class="projection-label">Dedak Padi Halus (Kualitas 1)</span>
+                <span class="projection-val">3.2 Ton</span>
+              </div>
+              <div class="projection-status-box">
+                <span>Rak Telur (Egg Tray): 1.850 Pcs</span>
+                <span>Siap Distribusi Agen</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Table Card -->
+        <article class="table-card">
+          <div class="table-header">
+            <div class="table-title-group">
+              <h3>Riwayat Produksi Telur Harian (Modul Petelur)</h3>
+              <p>Monitoring persentase Hen-Day Production (HDP) dan rasio telur grade A.</p>
+            </div>
+            <button type="button" class="btn-primary-action" id="btnRecordLayerBottom">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+              <span>+ Catat Panen Telur</span>
+            </button>
+          </div>
+
+          <div class="mobile-table-hint">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            <span>Geser tabel ke samping untuk melihat detail rak telur, grade A, dan HDP</span>
+          </div>
+
+          <div class="table-container">
+            <table class="data-table" id="tableLayer">
+              <thead>
+                <tr>
+                  <th scope="col">Tanggal</th>
+                  <th scope="col">Umur (Minggu)</th>
+                  <th scope="col">Total Butir</th>
+                  <th scope="col">Telur Tray (Rak)</th>
+                  <th scope="col">Grade A Utuh</th>
+                  <th scope="col">Retak / Abnormal</th>
+                  <th scope="col">Pakan Terpakai</th>
+                  <th scope="col">Hen-Day (HDP)</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody id="tbodyLayer">
+                <!-- Dynamically populated from data.js -->
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       10. Footer
+       ====================================================================== -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Grati-Ternak (TernakSmart)</h4>
+        <p>Platform software manajemen peternakan unggas terdepan di Indonesia. Membantu peternak Broiler dan Layer mengotomatiskan pencatatan kandang, mengontrol FCR, dan mendongkrak profitabilitas panen.</p>
+        <p style="color: #FCD34D; font-weight: 700;">Standar Keamanan Data Agribisnis Terenkripsi</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Modul Produk</h4>
+        <ul class="footer-links">
+          <li><a href="#modul-broiler">Modul Ayam Broiler (Pedaging)</a></li>
+          <li><a href="#modul-layer">Modul Ayam Petelur (Layer)</a></li>
+          <li><a href="#dashboard">Telemetri Sensor IoT</a></li>
+          <li><a href="#dashboard">Recording Harian Lapangan</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigasi</h4>
+        <ul class="footer-links">
+          <li><a href="#beranda">Beranda</a></li>
+          <li><a href="#fitur">Fitur Unggulan</a></li>
+          <li><a href="#evaluasi">Evaluasi Lapangan</a></li>
+          <li><a href="#harga">Paket Berlangganan</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Kontak &amp; Lokasi</h4>
+        <p>Kecamatan Grati, Kabupaten Pasuruan, Jawa Timur 67184, Indonesia</p>
+        <p>Email: <a href="mailto:halo@grati-ternak.id" style="color: #FFFFFF;">halo@grati-ternak.id</a></p>
+        <p>WhatsApp Peternak: <span style="color: var(--color-accent); font-weight: 700;">+62 812-3456-7890</span></p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; 2026 Grati-Ternak / TernakSmart. Hak Cipta Dilindungi Undang-Undang.</div>
+      <div>Standar Mutu Cobb 500 &bull; Lohmann Brown &bull; Zero-Slop Verified</div>
+    </div>
+  </footer>
+
+  <!-- ======================================================================
+       11. Native Input Modal Dialog (<dialog>)
+       ====================================================================== -->
+  <dialog class="custom-modal" id="inputModal" aria-labelledby="modalTitle">
+    <div class="modal-header">
+      <div class="modal-title-group">
+        <h3 id="modalTitle">Pencatatan Harian Kandang</h3>
+        <p id="modalSubTitle">Masukkan data operasional fisik riil untuk kalkulasi otomatis.</p>
+      </div>
+      <button type="button" class="modal-close-btn" id="modalCloseBtn" onclick="window.appCloseModal && window.appCloseModal()" aria-label="Tutup Dialog">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- Modal Module Switcher (Broiler vs Petelur) -->
+    <div class="modal-module-switcher">
+      <button type="button" class="modal-tab-btn active" id="modalTabBroiler" onclick="window.appSetModalModule && window.appSetModalModule('broiler')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        <span>Modul Broiler</span>
+      </button>
+      <button type="button" class="modal-tab-btn" id="modalTabLayer" onclick="window.appSetModalModule && window.appSetModalModule('layer')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 2v3"/><path d="M12 21v1"/></svg>
+        <span>Modul Petelur</span>
+      </button>
+    </div>
+
+    <form method="dialog" id="formRecording" class="modal-body">
+      
+      <!-- Broiler Form Fields -->
+      <div id="formBroilerFields" class="form-grid">
+        <div class="form-group">
+          <label class="form-label" for="inpBroilerAge">Umur Ayam (Hari)</label>
+          <input type="number" class="form-input" id="inpBroilerAge" value="34" min="1" max="60" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="inpBroilerFeedSak">Pakan Terpakai (Sak)</label>
+          <input type="number" class="form-input" id="inpBroilerFeedSak" value="38" step="0.5" min="0" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="inpBroilerMortality">Mortalitas / Kematian (Ekor)</label>
+          <input type="number" class="form-input" id="inpBroilerMortality" value="5" min="0" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="inpBroilerWeight">Rata-rata Bobot Sampling (Kg)</label>
+          <input type="number" class="form-input" id="inpBroilerWeight" value="2.25" step="0.01" min="0.1" required>
+        </div>
+
+        <div class="form-group full-width">
+          <label class="form-label" for="inpBroilerTempRh">Suhu / Kelembaban Kandang</label>
+          <input type="text" class="form-input" id="inpBroilerTempRh" value="26.8°C / 62%" required>
+        </div>
+
+        <div class="form-group full-width">
+          <div class="live-calc-box">
+            <span class="calc-label">Pertambahan Bobot Harian (ADG) Estimasi:</span>
+            <span class="calc-val" id="calcAdgVal">+70 gr/hari</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Layer Form Fields -->
+      <div id="formLayerFields" class="form-grid" style="display: none;">
+        <div class="form-group">
+          <label class="form-label" for="inpLayerAgeWeek">Umur Ayam (Minggu)</label>
+          <input type="text" class="form-input" id="inpLayerAgeWeek" value="Mgg ke-46" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="inpLayerFeedKg">Pakan Harian (Kg)</label>
+          <input type="number" class="form-input" id="inpLayerFeedKg" value="2100" min="0" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="inpLayerEggGradeA">Telur Grade A Utuh (Butir)</label>
+          <input type="number" class="form-input" id="inpLayerEggGradeA" value="18650" min="0" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="inpLayerEggRetak">Telur Retak / Kerabang (Butir)</label>
+          <input type="number" class="form-input" id="inpLayerEggRetak" value="215" min="0" required>
+        </div>
+
+        <div class="form-group full-width">
+          <label class="form-label" for="inpLayerEggKotor">Telur Kotor / Abnormal (Butir)</label>
+          <input type="number" class="form-input" id="inpLayerEggKotor" value="75" min="0" required>
+        </div>
+
+        <div class="form-group full-width">
+          <div class="live-calc-box">
+            <span class="calc-label">Kalkulasi Hen-Day (HDP) &amp; Total Rak:</span>
+            <span class="calc-val" id="calcHdpVal">94.7% (631.3 Tray)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" id="modalCancelBtn" onclick="window.appCloseModal && window.appCloseModal()">Batal</button>
+        <button type="submit" class="btn-primary-action" id="modalSaveBtn">Simpan Catatan</button>
+      </div>
+
+    </form>
+  </dialog>
+
+  <!-- Mobile Bottom Navigation & Action Bar -->
+  <aside class="mobile-bottom-bar" id="mobileBottomBar" aria-label="Navigasi Cepat Mobile">
+    <button type="button" class="bottom-bar-btn active" id="mbarBtnBroiler" onclick="window.appSwitchModule && window.appSwitchModule('broiler')" aria-label="Beralih ke Modul Broiler">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+      <span>Broiler</span>
+    </button>
+    <button type="button" class="bottom-bar-action" id="mbarBtnRecord" onclick="window.appOpenRecordingModal && window.appOpenRecordingModal()" aria-label="Catat Data Harian Baru">
+      <div class="bottom-bar-action-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+      </div>
+      <span>+ Catat</span>
+    </button>
+    <button type="button" class="bottom-bar-btn" id="mbarBtnLayer" onclick="window.appSwitchModule && window.appSwitchModule('layer')" aria-label="Beralih ke Modul Petelur">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 2v3"/><path d="M12 21v1"/></svg>
+      <span>Petelur</span>
+    </button>
+  </aside>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Scripts -->
+  <script src="data.js?v=2.4"></script>
+  <script src="app.js?v=2.4"></script>
+</body>
+</html>
