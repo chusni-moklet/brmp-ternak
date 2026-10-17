@@ -1,8 +1,8 @@
-# Grati-Ternak (TernakSmart 2.0) — Platform Manajemen Peternakan Unggas Presisi
+# Be-Ternak (Moklet 2.0) — Platform Manajemen Peternakan Unggas Presisi
 
 Platform software manajemen peternakan unggas terpadu khusus untuk peternak **Broiler (Pedaging)** dan **Layer (Petelur)**. Dirancang untuk kontrol presisi *Feed Conversion Ratio* (FCR), *Hen-Day Production* (HDP), stok pakan, dan deteksi anomali kematian unggas sesuai standar genetika resmi (Cobb 500 & Lohmann Brown).
 
-![Grati-Ternak Preview](dashboard_broiler.png)
+![Be-Ternak Preview](dashboard_broiler.png)
 
 ---
 
@@ -99,5 +99,5 @@ brmp-ternak/
 
 ## 📄 Lisensi & Hak Cipta
 
-© 2026 **Grati-Ternak / TernakSmart** — Dibuat untuk ekosistem peternak Indonesia di Pasuruan, Blitar, dan sekitarnya.
+© 2026 **Be-Ternak / Moklet Agrotech** — Dibuat untuk ekosistem peternak Indonesia di Pasuruan, Blitar, dan sekitarnya.
 Hak Cipta Dilindungi Undang-Undang.

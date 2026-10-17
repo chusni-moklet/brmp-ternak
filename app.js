@@ -1,5 +1,5 @@
 /**
- * app.js - Controller Logika Interaktif Grati-Ternak
+ * app.js - Controller Logika Interaktif Be-Ternak (Moklet)
  * Mendukung 2 Menu Utama: Broiler (Pedaging) & Layer (Petelur)
  * Sesuai Dokumen Spesifikasi Desain & Standar Anti-Slop
  */
@@ -364,7 +364,7 @@
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `GratiTernak_${currentModule}_${new Date().toISOString().slice(0, 10)}.csv`);
+    link.setAttribute("download", `BeTernak_${currentModule}_${new Date().toISOString().slice(0, 10)}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

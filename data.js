@@ -1,6 +1,6 @@
 /**
  * data.js - Data Model & Benchmark Standar Peternakan
- * Grati-Ternak / TernakSmart Sistem Manajemen Unggas Terpadu
+ * Be-Ternak / Moklet Sistem Manajemen Unggas Terpadu
  * Standard: Cobb 500 (Broiler) & Lohmann Brown (Layer)
  */
 
@@ -8,7 +8,7 @@ const FARM_DATA = {
   farmInfo: {
     id: "FARM-PAS-001",
     name: "abah suar Farm",
-    location: "Grati, Pasuruan, Jawa Timur",
+    location: "Moklet, Pasuruan, Jawa Timur",
     totalCapacity: 20000,
     trialDaysLeft: 14,
     operator: {
