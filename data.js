@@ -1,7 +1,7 @@
 /**
  * data.js - Data Model & Benchmark Standar Peternakan
  * Be-Ternak / Moklet Sistem Manajemen Unggas Terpadu
- * Standard: Cobb 500 (Broiler) & Lohmann Brown (Layer)
+ * Standard: KUB Pedaging & Lohmann Brown (Layer)
  */
 
 const FARM_DATA = {
@@ -16,16 +16,16 @@ const FARM_DATA = {
       role: "Pemilik Kandang",
       status: "Online"
     },
-    activeBlock: "Blok A - Closed House (10.000 Ekor)",
+    activeBlock: "Blok A - Kandang KUB Pedaging (10.000 Ekor)",
     blocks: [
-      { id: "BLOK-A", name: "Blok A - Closed House (10.000 Ekor)", type: "broiler", capacity: 10000 },
+      { id: "BLOK-A", name: "Blok A - Kandang KUB Pedaging (10.000 Ekor)", type: "broiler", capacity: 10000 },
       { id: "BLOK-B", name: "Blok B - Semi-Modern Baterai (10.000 Ekor)", type: "layer", capacity: 10000 }
     ]
   },
 
-  // 1. Modul Broiler (Pedaging)
+  // 1. Modul KUB Pedaging
   broiler: {
-    strain: "Cobb 500",
+    strain: "KUB Pedaging",
     chickInDate: "2026-09-14",
     currentAgeDays: 33,
     initialPopulation: 10000,

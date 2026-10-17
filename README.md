@@ -1,6 +1,6 @@
 # Be-Ternak (Moklet 2.0) — Platform Manajemen Peternakan Unggas Presisi
 
-Platform software manajemen peternakan unggas terpadu khusus untuk peternak **Broiler (Pedaging)** dan **Layer (Petelur)**. Dirancang untuk kontrol presisi *Feed Conversion Ratio* (FCR), *Hen-Day Production* (HDP), stok pakan, dan deteksi anomali kematian unggas sesuai standar genetika resmi (Cobb 500 & Lohmann Brown).
+Platform software manajemen peternakan unggas terpadu khusus untuk peternak **KUB Pedaging** dan **Layer (Petelur)**. Dirancang untuk kontrol presisi *Feed Conversion Ratio* (FCR), *Hen-Day Production* (HDP), stok pakan, dan deteksi anomali kematian unggas sesuai standar agribisnis modern.
 
 ![Be-Ternak Preview](dashboard_broiler.png)
 
@@ -9,7 +9,7 @@ Platform software manajemen peternakan unggas terpadu khusus untuk peternak **Br
 ## 🌟 Fitur Utama
 
 ### 1. 2 Modul Utama Operasional
-- **Modul Broiler (Pedaging - Closed House)**:
+- **Modul KUB Pedaging (Closed House & Semi-Modern)**:
   - Monitoring FCR Kumulatif terhadap target kemitraan (1.48 vs standar 1.54).
   - Sampling bobot harian (BW) dan pertambahan bobot harian (*Average Daily Gain* / ADG).
   - Deplesi mortalitas harian dan rasio efisiensi tonase panen.
@@ -23,7 +23,7 @@ Platform software manajemen peternakan unggas terpadu khusus untuk peternak **Br
   - Inventaris stok bahan pakan (Konsentrat 35%, Jagung Pipil KA 13.8%, Dedak Halus) dan proyeksi afkir unggas.
 
 ### 2. Antarmuka Lapangan & Mobile-First Experience
-- **Sticky Mobile Bottom Quick Bar**: Akses langsung ke modul Broiler, modul Petelur, dan tombol sentral **`+ Catat`**.
+- **Sticky Mobile Bottom Quick Bar**: Akses langsung ke modul KUB Pedaging, modul Petelur, dan tombol sentral **`+ Catat`**.
 - **Formulir Input Harian Cepat**: Native `<dialog>` dengan transisi *modal pop-in*, kalkulasi live otomatis (ADG & HDP/Tray), serta segment switcher modul.
 - **Tabel Responsif Lapangan**: Bantuan indikator geser horizontal dengan font mono presisi tinggi.
 - **Standar Desain Anti-Slop**: Kontras tinggi untuk penggunaan luar ruangan (*outdoor readability* WCAG AA 4.5:1 untuk teks dan 7:1 untuk metrik utama), radius sudut konsisten 8px, dan nol emoji generik (ikon SVG murni).
@@ -87,7 +87,7 @@ brmp-ternak/
 
 ## 📊 Standar Genetika & Parameter Teknis
 
-| Parameter | Modul Broiler (Cobb 500) | Modul Petelur (Lohmann Brown) |
+| Parameter | Modul KUB Pedaging | Modul Petelur (Lohmann Brown) |
 | :--- | :--- | :--- |
 | **Metrik Utama** | FCR (Kumulatif: 1.48) | HDP (Puncak: 94.6%) |
 | **Satuan Bobot / Produksi** | BW: 2.18 kg/ekor | 18.920 Butir (630.6 Tray) |

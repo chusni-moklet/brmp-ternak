@@ -1,6 +1,6 @@
 /**
  * app.js - Controller Logika Interaktif Be-Ternak (Moklet)
- * Mendukung 2 Menu Utama: Broiler (Pedaging) & Layer (Petelur)
+ * Mendukung 2 Menu Utama: KUB Pedaging & Layer (Petelur)
  * Sesuai Dokumen Spesifikasi Desain & Standar Anti-Slop
  */
 
@@ -103,7 +103,7 @@
       if (panelBroiler) panelBroiler.classList.add('active');
       if (panelLayer) panelLayer.classList.remove('active');
 
-      if (pageHeading) pageHeading.textContent = `Dashboard Operasional: ${FARM_DATA.farmInfo.name} — Broiler`;
+      if (pageHeading) pageHeading.textContent = `Dashboard Operasional: ${FARM_DATA.farmInfo.name} — KUB Pedaging`;
       if (pageSubHeading) pageSubHeading.textContent = 'Kelola data pakan, sampling berat, deplesi, dan kesehatan unggas dengan akurasi tinggi.';
       if (blockSelect) blockSelect.value = 'BLOK-A';
 
@@ -204,7 +204,7 @@
   // =========================================================================
   function setModalModule(mod) {
     if (mod === 'broiler') {
-      modalTitle.textContent = 'Input Harian Kandang — Modul Broiler';
+      modalTitle.textContent = 'Input Harian Kandang — Modul KUB Pedaging';
       modalSubTitle.textContent = 'Catat pakan, sampling bobot (BW), dan deplesi mortalitas hari ini.';
       formBroilerFields.style.display = 'grid';
       formLayerFields.style.display = 'none';
@@ -319,7 +319,7 @@
       if (bwEl) bwEl.textContent = weight.toFixed(2);
       if (fcrEl) fcrEl.textContent = '1.47';
 
-      showToast(`Data harian Broiler hari ke-${age} berhasil disimpan!`);
+      showToast(`Data harian KUB Pedaging hari ke-${age} berhasil disimpan!`);
     } else {
       const ageWeek = document.getElementById('inpLayerAgeWeek').value || 'Mgg ke-46';
       const feedKg = parseFloat(document.getElementById('inpLayerFeedKg').value) || 2100;
@@ -546,7 +546,7 @@
         const val = e.target.value;
         if (val === 'BLOK-A') {
           switchModule('broiler');
-          showToast('Beralih ke Blok A: Closed House Broiler');
+          showToast('Beralih ke Blok A: Kandang KUB Pedaging');
         } else if (val === 'BLOK-B') {
           switchModule('layer');
           showToast('Beralih ke Blok B: Baterai Semi-Modern Petelur');
