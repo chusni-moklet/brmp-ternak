@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=2.4">
+  <link rel="stylesheet" href="style.css?v=2.8">
 </head>
 <body>
 
@@ -308,15 +308,102 @@
                 <p>Proyeksi total tonase siap angkut, kecukupan sisa pakan finisher, dan kesiapan surat jalan pengiriman.</p>
               </div>
             </div>
+
+            <div class="benefit-item">
+              <div class="benefit-icon-bullet" style="background-color: var(--color-accent); color: var(--color-primary-dark);">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <div>
+                <h4>Pedoman KMS (Kartu Menuju Sukses) BRMP Jawa Timur</h4>
+                <p>Standar kurva penimbangan mingguan resmi Unit Perbibitan Ayam KUB BRMP Jatim (Minggu 1: 40g hingga Minggu 20: 1.940g) terintegrasi langsung di sistem.</p>
+              </div>
+            </div>
           </div>
 
-          <a href="#dashboard" class="btn-primary-action" id="btnGoToBroiler">
+          <a href="#dashboard" class="btn-primary-action" id="btnGoToBroiler" onclick="window.appSwitchModule && window.appSwitchModule('broiler')">
             <span>Buka Dashboard Operasional KUB Pedaging</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>
         </div>
 
       </div>
+
+      <!-- KMS Feature Highlight Showcase (BRMP Jawa Timur) -->
+      <div class="kms-feature-highlight">
+        <div class="kms-highlight-grid">
+          
+          <div class="kms-highlight-info">
+            <div class="kms-highlight-badges-row">
+              <span class="kms-org-badge">BRMP JAWA TIMUR</span>
+              <span class="kms-sub-badge">UNIT PERBIBITAN AYAM KUB</span>
+              <span class="kms-tag-gold">Standar Resmi</span>
+            </div>
+
+            <h3 class="kms-highlight-title">KMS — Kartu Menuju Sukses Ayam KUB</h3>
+            <p class="kms-motto">
+              <em>&ldquo;Timbanglah ayam anda (setiap minggu). Ayam sehat bobot bertambah semakin sukses dan menguntungkan&rdquo;</em>
+            </p>
+
+            <p class="kms-desc">
+              Pantau laju pertumbuhan ayam KUB Pedaging Anda menggunakan standar acuan resmi dari Balai Penerapan Standar Instrumen Pertanian (BRMP) Jawa Timur. Tersedia monitoring digital mingguan dari DOC umur 1 minggu hingga 20 minggu dengan target capaian bobot presisi.
+            </p>
+
+            <!-- Milestones Quick Benchmarks -->
+            <div class="kms-milestones">
+              <div class="kms-ms-item">
+                <span class="ms-week">Mgg 1</span>
+                <span class="ms-val">40 gr</span>
+              </div>
+              <div class="kms-ms-item">
+                <span class="ms-week">Mgg 4</span>
+                <span class="ms-val">280 gr</span>
+              </div>
+              <div class="kms-ms-item">
+                <span class="ms-week">Mgg 8</span>
+                <span class="ms-val">700 gr</span>
+              </div>
+              <div class="kms-ms-item">
+                <span class="ms-week">Mgg 12</span>
+                <span class="ms-val">1.120 gr</span>
+              </div>
+              <div class="kms-ms-item">
+                <span class="ms-week">Mgg 16</span>
+                <span class="ms-val">1.540 gr</span>
+              </div>
+              <div class="kms-ms-item highlight">
+                <span class="ms-week">Mgg 20</span>
+                <span class="ms-val">1.940 gr</span>
+              </div>
+            </div>
+
+            <div class="kms-cta-row">
+              <a href="#dashboard" class="btn-primary-action" onclick="window.appSwitchModule && window.appSwitchModule('broiler')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                <span>Pantau KMS Digital di Dashboard</span>
+              </a>
+              <button type="button" class="btn-secondary" onclick="window.appOpenKmsImageModal && window.appOpenKmsImageModal()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                <span>Lihat Format Asli BRMP</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="kms-highlight-media" onclick="window.appOpenKmsImageModal && window.appOpenKmsImageModal()" title="Klik untuk memperbesar kartu KMS asli BRMP Jawa Timur">
+            <div class="kms-media-frame">
+              <img src="assets/kms-kub-pedaging.jpg" alt="KMS - Kartu Menuju Sukses BRMP Jawa Timur Unit Perbibitan Ayam KUB" loading="lazy">
+              <div class="kms-zoom-overlay">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                <span>Klik untuk Perbesar Format Resmi BRMP Jatim</span>
+              </div>
+            </div>
+            <div class="kms-media-caption">
+              <span>Format Fisik Resmi: Unit Perbibitan Ayam KUB BRMP Jawa Timur</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -790,6 +877,95 @@
           </article>
         </div>
 
+        <!-- ==============================================================
+             KMS (KARTU MENUJU SUKSES) AYAM KUB - BRMP JAWA TIMUR
+             ============================================================== -->
+        <article class="table-card kms-dashboard-card" id="kmsBroilerCard">
+          <div class="kms-card-header">
+            <div class="kms-header-branding">
+              <div class="kms-badge-brmp">
+                <span class="kms-brmp-title">BRMP JAWA TIMUR</span>
+                <span class="kms-brmp-unit">UNIT PERBIBITAN AYAM KUB</span>
+              </div>
+              <div class="kms-title-block">
+                <h3 class="kms-main-title">KMS — KARTU MENUJU SUKSES (AYAM KUB)</h3>
+                <p class="kms-subtitle">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg>
+                  <span>Timbanglah ayam anda (setiap minggu). Ayam sehat bobot bertambah semakin sukses dan menguntungkan</span>
+                </p>
+              </div>
+            </div>
+            
+            <div class="kms-actions-group">
+              <button type="button" class="btn-secondary kms-btn" id="btnOpenKmsModal" onclick="window.appOpenKmsImageModal && window.appOpenKmsImageModal()" title="Lihat scan format fisik resmi BRMP Jawa Timur">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                <span>Lihat Format Asli</span>
+              </button>
+              <button type="button" class="btn-primary-action kms-btn" id="btnInputKmsWeekly" onclick="window.appOpenKmsInputModal && window.appOpenKmsInputModal()">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+                <span>+ Timbang Mingguan</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- KMS Batches Selector & Live Status Bar -->
+          <div class="kms-toolbar">
+            <div class="kms-batch-tabs" role="tablist" aria-label="Pilih Angkatan KMS">
+              <button type="button" class="kms-tab-btn active" data-batch="angkatan-1" onclick="window.appSelectKmsBatch && window.appSelectKmsBatch('angkatan-1')">
+                <span class="batch-dot"></span>
+                <span>Angkatan I (Aktif)</span>
+              </button>
+              <button type="button" class="kms-tab-btn" data-batch="angkatan-2" onclick="window.appSelectKmsBatch && window.appSelectKmsBatch('angkatan-2')">
+                <span>Angkatan II (Siklus Lalu)</span>
+              </button>
+              <button type="button" class="kms-tab-btn" data-batch="angkatan-3" onclick="window.appSelectKmsBatch && window.appSelectKmsBatch('angkatan-3')">
+                <span>Angkatan III</span>
+              </button>
+              <button type="button" class="kms-tab-btn" data-batch="angkatan-4" onclick="window.appSelectKmsBatch && window.appSelectKmsBatch('angkatan-4')">
+                <span>Angkatan IV</span>
+              </button>
+            </div>
+            <div class="kms-stat-summary" id="kmsBatchSummary">
+              <!-- Dynamically populated by app.js -->
+            </div>
+          </div>
+
+          <!-- Interactive Graphic SVG Chart -->
+          <div class="kms-chart-card">
+            <div class="kms-chart-header">
+              <div class="kms-chart-title-group">
+                <h4>Kurva Standar Bobot Baik (Minggu 1 s/d 20) vs Realisasi Kandang</h4>
+                <p>Grafik pertumbuhan resmi BRMP Jawa Timur dengan monitoring bobot mingguan.</p>
+              </div>
+              <div class="kms-legend">
+                <span class="legend-item"><span class="legend-line line-standard"></span> Standar Bobot Baik BRMP</span>
+                <span class="legend-item"><span class="legend-line line-actual"></span> Realisasi Bobot Kandang</span>
+              </div>
+            </div>
+            
+            <div class="kms-chart-svg-container" id="kmsChartContainer">
+              <!-- SVG chart rendered dynamically by app.js -->
+            </div>
+          </div>
+
+          <!-- Tabel Matriks KMS BRMP Jawa Timur (Minggu 1 s/d 20) -->
+          <div class="kms-table-section">
+            <div class="kms-table-header-row">
+              <h4>Tabel Penimbangan &amp; Evaluasi Bobot Mingguan (Format BRMP)</h4>
+              <span class="kms-table-badge">Minggu 1 s/d 20</span>
+            </div>
+            <div class="mobile-table-hint">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              <span>Geser tabel ke samping untuk melihat data penimbangan seluruh 20 minggu</span>
+            </div>
+            <div class="table-container kms-table-container">
+              <table class="data-table kms-matrix-table" id="tableKmsMatrix">
+                <!-- Dynamically populated from data.js by app.js -->
+              </table>
+            </div>
+          </div>
+        </article>
+
         <!-- Table Card -->
         <article class="table-card">
           <div class="table-header">
@@ -1172,6 +1348,105 @@
     </form>
   </dialog>
 
+  <!-- ======================================================================
+       12. Modal Format Asli KMS BRMP Jawa Timur (<dialog>)
+       ====================================================================== -->
+  <dialog class="custom-modal kms-image-modal" id="kmsImageModal" aria-labelledby="kmsModalTitle">
+    <div class="modal-header">
+      <div class="modal-title-group">
+        <div class="kms-modal-header-branding">
+          <span class="kms-org-badge">BRMP JAWA TIMUR</span>
+          <span class="kms-sub-badge">UNIT PERBIBITAN AYAM KUB</span>
+        </div>
+        <h3 id="kmsModalTitle">KMS — Kartu Menuju Sukses (Format Fisik Resmi)</h3>
+        <p id="kmsModalSubTitle">Dokumen pedoman kurva pertumbuhan bobot mingguan resmi ayam KUB.</p>
+      </div>
+      <button type="button" class="modal-close-btn" id="kmsModalCloseBtn" onclick="window.appCloseKmsImageModal && window.appCloseKmsImageModal()" aria-label="Tutup Dialog KMS">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="modal-body kms-modal-body">
+      <div class="kms-modal-preview-box">
+        <img src="assets/kms-kub-pedaging.jpg" alt="Format Resmi KMS Kartu Menuju Sukses BRMP Jawa Timur Unit Perbibitan Ayam KUB" id="kmsModalPreviewImg">
+      </div>
+      <div class="kms-modal-tip">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        <span><strong>Pedoman BRMP:</strong> Timbanglah ayam Anda setiap minggu. Jika rataan bobot berada di atas garis biru (Bobot Baik), performa pemeliharaan berada di jalur keuntungan optimal.</span>
+      </div>
+    </div>
+
+    <div class="modal-footer kms-modal-footer">
+      <a href="assets/kms-kub-pedaging.jpg" download="KMS-Ayam-KUB-BRMP-Jatim.jpg" class="btn-secondary" id="btnDownloadKmsImg">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+        <span>Unduh Format Asli</span>
+      </a>
+      <button type="button" class="btn-secondary" onclick="window.print()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
+        <span>Cetak Kartu KMS</span>
+      </button>
+      <button type="button" class="btn-primary-action" onclick="window.appCloseKmsImageModal && window.appCloseKmsImageModal()">Selesai</button>
+    </div>
+  </dialog>
+
+  <!-- ======================================================================
+       13. Modal Input Penimbangan Mingguan KMS (<dialog>)
+       ====================================================================== -->
+  <dialog class="custom-modal" id="kmsInputModal" aria-labelledby="kmsInputTitle">
+    <div class="modal-header">
+      <div class="modal-title-group">
+        <h3 id="kmsInputTitle">Input Penimbangan Mingguan KMS</h3>
+        <p id="kmsInputSubTitle">Catat bobot rataan mingguan untuk evaluasi kurva standar BRMP Jawa Timur.</p>
+      </div>
+      <button type="button" class="modal-close-btn" onclick="window.appCloseKmsInputModal && window.appCloseKmsInputModal()" aria-label="Tutup Dialog">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <form method="dialog" id="formKmsInput" class="modal-body">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label" for="kmsInputBatch">Pilih Angkatan Pemeliharaan</label>
+          <select class="form-select" id="kmsInputBatch" required>
+            <option value="angkatan-1">Angkatan I (Aktif)</option>
+            <option value="angkatan-2">Angkatan II (Siklus Lalu)</option>
+            <option value="angkatan-3">Angkatan III</option>
+            <option value="angkatan-4">Angkatan IV</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="kmsInputWeek">Umur Penimbangan (Minggu)</label>
+          <select class="form-select" id="kmsInputWeek" required>
+            <!-- 1 to 20 populated -->
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="kmsInputDate">Tanggal Penimbangan</label>
+          <input type="date" class="form-input" id="kmsInputDate" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="kmsInputWeight">Rataan Bobot Aktual (Gram / Ekor)</label>
+          <input type="number" class="form-input" id="kmsInputWeight" placeholder="Contoh: 410" min="10" max="3000" step="1" required>
+        </div>
+
+        <div class="form-group full-width">
+          <div class="live-calc-box" id="kmsBenchmarkLiveBox">
+            <span class="calc-label">Standar Bobot Baik BRMP Minggu Ini:</span>
+            <span class="calc-val" id="kmsLiveTargetComparison">Pilih minggu untuk evaluasi</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" onclick="window.appCloseKmsInputModal && window.appCloseKmsInputModal()">Batal</button>
+        <button type="submit" class="btn-primary-action" id="btnSaveKmsInput">Simpan Data Timbangan</button>
+      </div>
+    </form>
+  </dialog>
+
   <!-- Mobile Bottom Navigation & Action Bar -->
   <aside class="mobile-bottom-bar" id="mobileBottomBar" aria-label="Navigasi Cepat Mobile">
     <button type="button" class="bottom-bar-btn active" id="mbarBtnBroiler" onclick="window.appSwitchModule && window.appSwitchModule('broiler')" aria-label="Beralih ke Modul KUB Pedaging">
@@ -1194,7 +1469,7 @@
   <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
 
   <!-- Scripts -->
-  <script src="data.js?v=2.7"></script>
-  <script src="app.js?v=2.7"></script>
+  <script src="data.js?v=2.8"></script>
+  <script src="app.js?v=2.8"></script>
 </body>
 </html>

@@ -59,6 +59,66 @@ const FARM_DATA = {
       statusKipas: "Aktif 4/4 Unit Inverter (Ventilasi Optimal)",
       statusLingkungan: "Normal"
     },
+    kms: {
+      instansi: "BRMP JAWA TIMUR",
+      unit: "UNIT PERBIBITAN AYAM KUB",
+      title: "KMS - KARTU MENUJU SUKSES",
+      motto: "Timbanglah ayam anda (setiap minggu). Ayam sehat bobot bertambah semakin sukses dan menguntungkan",
+      imagePath: "assets/kms-kub-pedaging.jpg",
+      // Standard target weights (gram) for weeks 1 to 20 from official BRMP chart
+      standardWeeks: [
+        { week: 1, targetGram: 40 },
+        { week: 2, targetGram: 70 },
+        { week: 3, targetGram: 175 },
+        { week: 4, targetGram: 280 },
+        { week: 5, targetGram: 385 },
+        { week: 6, targetGram: 490 },
+        { week: 7, targetGram: 595 },
+        { week: 8, targetGram: 700 },
+        { week: 9, targetGram: 805 },
+        { week: 10, targetGram: 910 },
+        { week: 11, targetGram: 1015 },
+        { week: 12, targetGram: 1120 },
+        { week: 13, targetGram: 1225 },
+        { week: 14, targetGram: 1330 },
+        { week: 15, targetGram: 1435 },
+        { week: 16, targetGram: 1540 },
+        { week: 17, targetGram: 1640 },
+        { week: 18, targetGram: 1740 },
+        { week: 19, targetGram: 1840 },
+        { week: 20, targetGram: 1940 }
+      ],
+      batches: [
+        {
+          id: "angkatan-1",
+          name: "Angkatan I (Aktif)",
+          isActive: true,
+          dates: ["14/09", "21/09", "28/09", "05/10", "12/10", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"],
+          weights: [44, 76, 185, 296, 408, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
+        },
+        {
+          id: "angkatan-2",
+          name: "Angkatan II (Siklus Lalu)",
+          isActive: false,
+          dates: ["01/04", "08/04", "15/04", "22/04", "29/04", "06/05", "13/05", "20/05", "27/05", "03/06", "10/06", "17/06", "24/06", "01/07", "08/07", "15/07", "22/07", "29/07", "05/08", "12/08"],
+          weights: [42, 72, 178, 284, 390, 500, 608, 715, 820, 925, 1030, 1135, 1240, 1345, 1450, 1555, 1650, 1755, 1850, 1955]
+        },
+        {
+          id: "angkatan-3",
+          name: "Angkatan III",
+          isActive: false,
+          dates: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"],
+          weights: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
+        },
+        {
+          id: "angkatan-4",
+          name: "Angkatan IV",
+          isActive: false,
+          dates: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"],
+          weights: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
+        }
+      ]
+    },
     panenProyeksi: {
       siapPanenHari: 2,
       estimasiTonaseTon: 43.16,

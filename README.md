@@ -12,6 +12,11 @@ Platform software manajemen peternakan unggas terpadu khusus untuk peternak **KU
 - **Modul KUB Pedaging (Closed House & Semi-Modern)**:
   - Monitoring FCR Kumulatif terhadap target kemitraan (1.48 vs standar 1.54).
   - Sampling bobot harian (BW) dan pertambahan bobot harian (*Average Daily Gain* / ADG).
+  - **Integrasi KMS (Kartu Menuju Sukses) Resmi BRMP Jawa Timur (Unit Perbibitan Ayam KUB)**:
+    - Kurva acuan bobot baik mingguan dari Minggu 1 (40 gr) hingga Minggu 20 (1.940 gr).
+    - Grafik SVG interaktif standar vs realisasi angkatan pemeliharaan (Angkatan I s/d IV).
+    - Tabel matriks 20 minggu penimbangan dengan evaluasi deviasi capaian bobot.
+    - Modal input penimbangan mingguan dan pratinjau scan kartu fisik resmi BRMP Jatim.
   - Deplesi mortalitas harian dan rasio efisiensi tonase panen.
   - Telemetri sensor IoT kandang: Suhu (°C), Kelembaban (*Relative Humidity* / RH), Gas Amonia (ppm), dan status aktivasi *Inverter Fan*.
   - Proyeksi jadwal muat panen livebird dan estimasi kecukupan stok pakan finisher.
