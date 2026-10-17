@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Be-Ternak — Platform Manajemen Peternakan Broiler &amp; Petelur Presisi</title>
+  <title>Be-Ternak — Platform Manajemen Peternakan Ayam KUB Pedaging Broiler &amp; Petelur Presisi</title>
   <meta name="description" content="Platform software manajemen peternakan unggas terpadu untuk ayam broiler (pedaging) dan layer (petelur). Kontrol FCR, Hen-Day Production, stok pakan, dan mortalitas secara presisi.">
 
   <!-- Typography: Plus Jakarta Sans & JetBrains Mono -->
@@ -630,7 +630,7 @@
             <option value="ALL">Semua Blok (20.000 Ekor)</option>
           </select>
 
-          <button type="button" class="btn-primary-action" id="btnInputHeader">
+          <button type="button" class="btn-primary-action" id="btnInputHeader" onclick="window.appOpenRecordingModal && window.appOpenRecordingModal()">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
             <span>+ Input Harian</span>
           </button>
@@ -797,7 +797,7 @@
               <h3>Riwayat Pencatatan Harian (Recording Kandang Broiler)</h3>
               <p>Data konsumsi pakan, deplesi, dan pertambahan bobot harian.</p>
             </div>
-            <button type="button" class="btn-primary-action" id="btnRecordBroilerBottom">
+            <button type="button" class="btn-primary-action" id="btnRecordBroilerBottom" onclick="window.appOpenRecordingModal && window.appOpenRecordingModal('broiler')">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
               <span>+ Catat Hari Ini</span>
             </button>
@@ -983,7 +983,7 @@
               <h3>Riwayat Produksi Telur Harian (Modul Petelur)</h3>
               <p>Monitoring persentase Hen-Day Production (HDP) dan rasio telur grade A.</p>
             </div>
-            <button type="button" class="btn-primary-action" id="btnRecordLayerBottom">
+            <button type="button" class="btn-primary-action" id="btnRecordLayerBottom" onclick="window.appOpenRecordingModal && window.appOpenRecordingModal('layer')">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
               <span>+ Catat Panen Telur</span>
             </button>
@@ -1194,7 +1194,7 @@
   <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
 
   <!-- Scripts -->
-  <script src="data.js?v=2.4"></script>
-  <script src="app.js?v=2.4"></script>
+  <script src="data.js?v=2.5"></script>
+  <script src="app.js?v=2.5"></script>
 </body>
 </html>

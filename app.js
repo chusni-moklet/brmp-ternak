@@ -76,7 +76,7 @@
     startIoTSimulation();
 
     // Check URL Hash for deep link
-    const hash = window.location.hash.toLowerCase();
+    const hash = (window.location && window.location.hash) ? window.location.hash.toLowerCase() : '';
     if (hash === '#layer' || hash === '#petelur') {
       switchModule('layer');
     } else {
@@ -91,43 +91,59 @@
     currentModule = moduleName;
 
     if (moduleName === 'broiler') {
-      tabBtnBroiler.classList.add('active');
-      tabBtnBroiler.setAttribute('aria-selected', 'true');
-      tabBtnLayer.classList.remove('active');
-      tabBtnLayer.setAttribute('aria-selected', 'false');
+      if (tabBtnBroiler) {
+        tabBtnBroiler.classList.add('active');
+        tabBtnBroiler.setAttribute('aria-selected', 'true');
+      }
+      if (tabBtnLayer) {
+        tabBtnLayer.classList.remove('active');
+        tabBtnLayer.setAttribute('aria-selected', 'false');
+      }
 
-      panelBroiler.classList.add('active');
-      panelLayer.classList.remove('active');
+      if (panelBroiler) panelBroiler.classList.add('active');
+      if (panelLayer) panelLayer.classList.remove('active');
 
-      pageHeading.textContent = `Dashboard Operasional: ${FARM_DATA.farmInfo.name} — Broiler`;
-      pageSubHeading.textContent = 'Kelola data pakan, sampling berat, deplesi, dan kesehatan unggas dengan akurasi tinggi.';
-      blockSelect.value = 'BLOK-A';
+      if (pageHeading) pageHeading.textContent = `Dashboard Operasional: ${FARM_DATA.farmInfo.name} — Broiler`;
+      if (pageSubHeading) pageSubHeading.textContent = 'Kelola data pakan, sampling berat, deplesi, dan kesehatan unggas dengan akurasi tinggi.';
+      if (blockSelect) blockSelect.value = 'BLOK-A';
 
       if (mbarBtnBroiler && mbarBtnLayer) {
         mbarBtnBroiler.classList.add('active');
         mbarBtnLayer.classList.remove('active');
       }
 
-      window.history.replaceState(null, '', '#broiler');
+      try {
+        if (window.history && typeof window.history.replaceState === 'function') {
+          window.history.replaceState(null, '', '#broiler');
+        }
+      } catch (e) {}
     } else {
-      tabBtnLayer.classList.add('active');
-      tabBtnLayer.setAttribute('aria-selected', 'true');
-      tabBtnBroiler.classList.remove('active');
-      tabBtnBroiler.setAttribute('aria-selected', 'false');
+      if (tabBtnLayer) {
+        tabBtnLayer.classList.add('active');
+        tabBtnLayer.setAttribute('aria-selected', 'true');
+      }
+      if (tabBtnBroiler) {
+        tabBtnBroiler.classList.remove('active');
+        tabBtnBroiler.setAttribute('aria-selected', 'false');
+      }
 
-      panelLayer.classList.add('active');
-      panelBroiler.classList.remove('active');
+      if (panelLayer) panelLayer.classList.add('active');
+      if (panelBroiler) panelBroiler.classList.remove('active');
 
-      pageHeading.textContent = `Dashboard Operasional: ${FARM_DATA.farmInfo.name} — Petelur`;
-      pageSubHeading.textContent = 'Monitoring produksi telur harian, mutu kerabang, rasio pakan, dan proyeksi afkir.';
-      blockSelect.value = 'BLOK-B';
+      if (pageHeading) pageHeading.textContent = `Dashboard Operasional: ${FARM_DATA.farmInfo.name} — Petelur`;
+      if (pageSubHeading) pageSubHeading.textContent = 'Monitoring produksi telur harian, mutu kerabang, rasio pakan, dan proyeksi afkir.';
+      if (blockSelect) blockSelect.value = 'BLOK-B';
 
       if (mbarBtnBroiler && mbarBtnLayer) {
         mbarBtnLayer.classList.add('active');
         mbarBtnBroiler.classList.remove('active');
       }
 
-      window.history.replaceState(null, '', '#layer');
+      try {
+        if (window.history && typeof window.history.replaceState === 'function') {
+          window.history.replaceState(null, '', '#layer');
+        }
+      } catch (e) {}
     }
   }
 
@@ -207,8 +223,12 @@
   }
 
   function openRecordingModal(targetModule) {
-    const mod = targetModule || currentModule;
+    const mod = (typeof targetModule === 'string' && (targetModule === 'broiler' || targetModule === 'layer'))
+      ? targetModule
+      : currentModule;
     setModalModule(mod);
+
+    if (!inputModal) return;
 
     try {
       if (typeof inputModal.showModal === 'function') {
@@ -217,15 +237,14 @@
         }
       } else {
         inputModal.setAttribute('open', '');
-        inputModal.style.display = 'flex';
       }
     } catch (err) {
       inputModal.setAttribute('open', '');
-      inputModal.style.display = 'flex';
     }
   }
 
   function closeModal() {
+    if (!inputModal) return;
     try {
       if (typeof inputModal.close === 'function') {
         if (inputModal.open) {
@@ -234,14 +253,13 @@
       }
     } catch (err) {}
     inputModal.removeAttribute('open');
-    inputModal.style.display = '';
   }
 
   // Live Calculations saat mengetik di form modal
   function setupLiveCalculations() {
-    inpBroilerWeight.addEventListener('input', updateBroilerCalc);
+    if (inpBroilerWeight) inpBroilerWeight.addEventListener('input', updateBroilerCalc);
     [inpLayerEggGradeA, inpLayerEggRetak, inpLayerEggKotor].forEach(el => {
-      el.addEventListener('input', updateLayerCalc);
+      if (el) el.addEventListener('input', updateLayerCalc);
     });
   }
 
@@ -422,8 +440,8 @@
   // =========================================================================
   function setupEventListeners() {
     // Menu Switcher Clicks
-    tabBtnBroiler.addEventListener('click', () => switchModule('broiler'));
-    tabBtnLayer.addEventListener('click', () => switchModule('layer'));
+    if (tabBtnBroiler) tabBtnBroiler.addEventListener('click', () => switchModule('broiler'));
+    if (tabBtnLayer) tabBtnLayer.addEventListener('click', () => switchModule('layer'));
 
     // Hero Simulator Tab Switcher
     const simTabBroiler = document.getElementById('simTabBroiler');
@@ -434,39 +452,39 @@
       if (moduleName === 'broiler') {
         simTabBroiler.classList.add('active');
         simTabLayer.classList.remove('active');
-        document.getElementById('simLbl1').textContent = 'FCR Kumulatif';
-        document.getElementById('simVal1').textContent = '1.48';
-        document.getElementById('simDiff1').textContent = '-0.06 pt Efisien';
+        const s1 = document.getElementById('simLbl1'); if (s1) s1.textContent = 'FCR Kumulatif';
+        const v1 = document.getElementById('simVal1'); if (v1) v1.textContent = '1.48';
+        const d1 = document.getElementById('simDiff1'); if (d1) d1.textContent = '-0.06 pt Efisien';
 
-        document.getElementById('simLbl2').textContent = 'Bobot Sampling (BW)';
-        document.getElementById('simVal2').textContent = '2.18 kg';
-        document.getElementById('simDiff2').textContent = '+80g vs target';
+        const s2 = document.getElementById('simLbl2'); if (s2) s2.textContent = 'Bobot Sampling (BW)';
+        const v2 = document.getElementById('simVal2'); if (v2) v2.textContent = '2.18 kg';
+        const d2 = document.getElementById('simDiff2'); if (d2) d2.textContent = '+80g vs target';
 
-        document.getElementById('simLbl3').textContent = 'Mortalitas';
-        document.getElementById('simVal3').textContent = '1.12%';
-        document.getElementById('simDiff3').textContent = 'Batas < 3.0%';
+        const s3 = document.getElementById('simLbl3'); if (s3) s3.textContent = 'Mortalitas';
+        const v3 = document.getElementById('simVal3'); if (v3) v3.textContent = '1.12%';
+        const d3 = document.getElementById('simDiff3'); if (d3) d3.textContent = 'Batas < 3.0%';
 
-        document.getElementById('simLbl4').textContent = 'Indeks Performa (IP)';
-        document.getElementById('simVal4').textContent = '418';
-        document.getElementById('simDiff4').textContent = 'Grade Istimewa';
+        const s4 = document.getElementById('simLbl4'); if (s4) s4.textContent = 'Indeks Performa (IP)';
+        const v4 = document.getElementById('simVal4'); if (v4) v4.textContent = '418';
+        const d4 = document.getElementById('simDiff4'); if (d4) d4.textContent = 'Grade Istimewa';
       } else {
         simTabLayer.classList.add('active');
         simTabBroiler.classList.remove('active');
-        document.getElementById('simLbl1').textContent = 'Hen-Day (HDP)';
-        document.getElementById('simVal1').textContent = '94.6%';
-        document.getElementById('simDiff1').textContent = 'Puncak (Peak)';
+        const s1 = document.getElementById('simLbl1'); if (s1) s1.textContent = 'Hen-Day (HDP)';
+        const v1 = document.getElementById('simVal1'); if (v1) v1.textContent = '94.6%';
+        const d1 = document.getElementById('simDiff1'); if (d1) d1.textContent = 'Puncak (Peak)';
 
-        document.getElementById('simLbl2').textContent = 'Produksi Harian';
-        document.getElementById('simVal2').textContent = '18.920 btr';
-        document.getElementById('simDiff2').textContent = '630.6 Tray';
+        const s2 = document.getElementById('simLbl2'); if (s2) s2.textContent = 'Produksi Harian';
+        const v2 = document.getElementById('simVal2'); if (v2) v2.textContent = '18.920 btr';
+        const d2 = document.getElementById('simDiff2'); if (d2) d2.textContent = '630.6 Tray';
 
-        document.getElementById('simLbl3').textContent = 'Pakan per Butir';
-        document.getElementById('simVal3').textContent = '111 gram';
-        document.getElementById('simDiff3').textContent = 'Hemat 3 gr';
+        const s3 = document.getElementById('simLbl3'); if (s3) s3.textContent = 'Pakan per Butir';
+        const v3 = document.getElementById('simVal3'); if (v3) v3.textContent = '111 gram';
+        const d3 = document.getElementById('simDiff3'); if (d3) d3.textContent = 'Hemat 3 gr';
 
-        document.getElementById('simLbl4').textContent = 'Proyeksi Afkir';
-        document.getElementById('simVal4').textContent = 'Mgg 78';
-        document.getElementById('simDiff4').textContent = 'Sisa 32 Mgg';
+        const s4 = document.getElementById('simLbl4'); if (s4) s4.textContent = 'Proyeksi Afkir';
+        const v4 = document.getElementById('simVal4'); if (v4) v4.textContent = 'Mgg 78';
+        const d4 = document.getElementById('simDiff4'); if (d4) d4.textContent = 'Sisa 32 Mgg';
       }
     }
 
@@ -490,41 +508,53 @@
       });
     }
 
-    // Open Modal Triggers
-    btnQuickRecord.addEventListener('click', openRecordingModal);
-    btnInputHeader.addEventListener('click', openRecordingModal);
-    btnRecordBroilerBottom.addEventListener('click', openRecordingModal);
-    btnRecordLayerBottom.addEventListener('click', openRecordingModal);
+    // Open Modal Triggers (with null-checks & explicit module arguments)
+    if (btnQuickRecord) {
+      btnQuickRecord.addEventListener('click', () => openRecordingModal());
+    }
+    if (btnInputHeader) {
+      btnInputHeader.addEventListener('click', () => openRecordingModal());
+    }
+    if (btnRecordBroilerBottom) {
+      btnRecordBroilerBottom.addEventListener('click', () => openRecordingModal('broiler'));
+    }
+    if (btnRecordLayerBottom) {
+      btnRecordLayerBottom.addEventListener('click', () => openRecordingModal('layer'));
+    }
 
     // Close Modal Triggers
-    modalCloseBtn.addEventListener('click', closeModal);
-    modalCancelBtn.addEventListener('click', closeModal);
-    formRecording.addEventListener('submit', handleFormSubmit);
+    if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
+    if (modalCancelBtn) modalCancelBtn.addEventListener('click', closeModal);
+    if (formRecording) formRecording.addEventListener('submit', handleFormSubmit);
 
     // Light dismiss for dialog (click on backdrop)
-    inputModal.addEventListener('click', (e) => {
-      if (e.target === inputModal) {
-        closeModal();
-      }
-    });
+    if (inputModal) {
+      inputModal.addEventListener('click', (e) => {
+        if (e.target === inputModal) {
+          closeModal();
+        }
+      });
+    }
 
     // Exports
-    btnExportExcel.addEventListener('click', exportCSV);
-    btnExportPDF.addEventListener('click', exportPDF);
+    if (btnExportExcel) btnExportExcel.addEventListener('click', exportCSV);
+    if (btnExportPDF) btnExportPDF.addEventListener('click', exportPDF);
 
     // Block dropdown change
-    blockSelect.addEventListener('change', (e) => {
-      const val = e.target.value;
-      if (val === 'BLOK-A') {
-        switchModule('broiler');
-        showToast('Beralih ke Blok A: Closed House Broiler');
-      } else if (val === 'BLOK-B') {
-        switchModule('layer');
-        showToast('Beralih ke Blok B: Baterai Semi-Modern Petelur');
-      } else {
-        showToast('Menampilkan seluruh populasi kandang abah suar Farm');
-      }
-    });
+    if (blockSelect) {
+      blockSelect.addEventListener('change', (e) => {
+        const val = e.target.value;
+        if (val === 'BLOK-A') {
+          switchModule('broiler');
+          showToast('Beralih ke Blok A: Closed House Broiler');
+        } else if (val === 'BLOK-B') {
+          switchModule('layer');
+          showToast('Beralih ke Blok B: Baterai Semi-Modern Petelur');
+        } else {
+          showToast('Menampilkan seluruh populasi kandang abah suar Farm');
+        }
+      });
+    }
 
     // Mobile Navigation Drawer Toggle & Links
     if (btnMobileNavToggle && mobileNavDrawer) {
@@ -596,7 +626,7 @@
 
     // Keyboard Shortcuts (1: Broiler, 2: Layer, N: New Input, Esc: Close)
     window.addEventListener('keydown', (e) => {
-      if (inputModal.open) {
+      if (inputModal && inputModal.open) {
         if (e.key === 'Escape') closeModal();
         return;
       }
@@ -630,10 +660,13 @@
   window.appSwitchModule = function (mod) {
     switchModule(mod);
     const dash = document.getElementById('dashboard');
-    if (dash) {
+    if (dash && typeof dash.getBoundingClientRect === 'function') {
       const navHeight = 65;
-      const y = dash.getBoundingClientRect().top + window.pageYOffset - navHeight;
-      window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+      const pageY = window.pageYOffset || window.scrollY || 0;
+      const y = dash.getBoundingClientRect().top + pageY - navHeight;
+      if (typeof window.scrollTo === 'function') {
+        window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+      }
     }
   };
 
