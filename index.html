@@ -712,10 +712,18 @@
         <div class="filter-action-bar">
           <label for="blockSelect" class="visually-hidden" style="position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0,0,0,0);">Pilih Blok Kandang</label>
           <select class="select-filter" id="blockSelect" title="Pilih Blok Kandang">
-            <option value="BLOK-A" selected>Blok A - Kandang KUB Pedaging (10.000 Ekor)</option>
-            <option value="BLOK-B">Blok B - Baterai KUB Petelur (10.000 Ekor)</option>
-            <option value="ALL">Semua Blok (20.000 Ekor)</option>
+            <option value="BLOK-A" selected>Blok A - Kandang KUB Pedaging (150 Ekor)</option>
+            <option value="BLOK-B">Blok B - Baterai KUB Petelur (125 Ekor)</option>
+            <option value="ALL">Semua Blok (275 Ekor)</option>
+            <option value="MANUAL_POPULATION">✏️ Isi / Atur Populasi Manual...</option>
           </select>
+
+          <!-- Tombol Quick Edit Populasi Manual -->
+          <button type="button" class="btn-pop-action" id="btnOpenPopulationModal" onclick="window.appOpenPopulationModal && window.appOpenPopulationModal()" title="Atur & Isi Populasi Manual (Contoh: 150 ekor, 125 ekor, dst)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span class="btn-pop-text">Populasi: <strong id="headerPopulationDisplay">150 Ekor</strong></span>
+            <span class="btn-pop-tag">Atur ✎</span>
+          </button>
 
           <button type="button" class="btn-primary-action" id="btnInputHeader" onclick="window.appOpenRecordingModal && window.appOpenRecordingModal()">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
@@ -780,11 +788,11 @@
               </div>
             </div>
             <div class="metric-value-row">
-              <span class="metric-number" id="broilerMortalityVal">1.12%</span>
-              <span class="metric-unit">(224 ekor)</span>
+              <span class="metric-number" id="broilerMortalityVal">2.00%</span>
+              <span class="metric-unit" id="broilerMortalityCount">(3 ekor)</span>
               <span class="metric-badge badge-optimal">Sangat Baik</span>
             </div>
-            <p class="metric-subtext">Batas Toleransi: <strong>&lt; 3.0%</strong> &bull; Kondisi Imunitas Prima</p>
+            <p class="metric-subtext" id="broilerMortalitySubtext">Batas Toleransi: <strong>&lt; 3.0%</strong> &bull; Kondisi Imunitas Prima</p>
           </article>
 
           <article class="metric-card">
@@ -795,7 +803,7 @@
               </div>
             </div>
             <div class="metric-value-row">
-              <span class="metric-number" id="broilerIpVal">418</span>
+              <span class="metric-number" id="broilerIpVal">437</span>
               <span class="metric-badge badge-optimal">Istimewa (&gt;400)</span>
             </div>
             <p class="metric-subtext">Umur Panen: <strong>Hari 33</strong> &bull; Berhak Bonus Kemitraan +</p>
@@ -859,19 +867,19 @@
             <div class="projection-items">
               <div class="projection-row">
                 <span class="projection-label">Estimasi Tonase Total</span>
-                <span class="projection-val">43.16 Ton</span>
+                <span class="projection-val" id="broilerTonnageVal">320.5 Kg (0.32 Ton)</span>
               </div>
               <div class="projection-row">
                 <span class="projection-label">Populasi Siap Muat (Ekor)</span>
-                <span class="projection-val">19.776 Ekor</span>
+                <span class="projection-val" id="broilerReadyHarvestVal">147 Ekor</span>
               </div>
               <div class="projection-row">
                 <span class="projection-label">Sisa Stok Pakan Finisher</span>
-                <span class="projection-val">84 Sak (Cukup 2.2 Hari)</span>
+                <span class="projection-val" id="broilerFeedStockVal">3 Sak (Cukup 13.6 Hari)</span>
               </div>
               <div class="projection-status-box">
                 <span>Status Dokumen: Surat Jalan Siap</span>
-                <span>Truk Bak 1 &amp; 2 Terjadwal</span>
+                <span>Pick-up / Truk Siap Terjadwal</span>
               </div>
             </div>
           </article>
@@ -1036,11 +1044,11 @@
               </div>
             </div>
             <div class="metric-value-row">
-              <span class="metric-number" id="layerEggVal">18.920</span>
+              <span class="metric-number" id="layerEggVal">115</span>
               <span class="metric-unit">butir</span>
-              <span class="metric-badge badge-optimal">Grade A 98.4%</span>
+              <span class="metric-badge badge-optimal">Grade A 98.3%</span>
             </div>
-            <p class="metric-subtext">Konversi Rak Telur: <strong>630.6 Tray</strong> (30 butir/tray)</p>
+            <p class="metric-subtext" id="layerTraySubtext">Konversi Rak Telur: <strong>3.8 Tray</strong> (30 butir/tray)</p>
           </article>
 
           <article class="metric-card">
@@ -1055,7 +1063,7 @@
               <span class="metric-unit">gram / butir</span>
               <span class="metric-badge badge-optimal">Hemat 3 gr</span>
             </div>
-            <p class="metric-subtext">Total Pakan: <strong>2.100 kg</strong> &bull; Target Standar: 114 gr/butir</p>
+            <p class="metric-subtext" id="layerFeedSubtext">Total Pakan: <strong>12.8 kg</strong> &bull; Target Standar: 111 gr/butir</p>
           </article>
 
           <article class="metric-card">
@@ -1082,13 +1090,13 @@
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
                 <h3>Klasifikasi Kualitas Telur Hari Ini</h3>
               </div>
-              <span class="widget-status-pill badge-optimal">Total: 18.920 Butir</span>
+              <span class="widget-status-pill badge-optimal" id="layerQualityStatusPill">Total: 115 Butir</span>
             </div>
 
-            <div class="quality-progress-bar" title="Rasio Mutu: Grade A 98.4%, Retak 1.2%, Kotor 0.4%">
-              <div class="bar-segment segment-grade-a" style="width: 98.4%;"></div>
-              <div class="bar-segment segment-retak" style="width: 1.2%;"></div>
-              <div class="bar-segment segment-abnormal" style="width: 0.4%;"></div>
+            <div class="quality-progress-bar" title="Rasio Mutu: Grade A 98.3%, Retak 1.7%, Kotor 0.0%">
+              <div class="bar-segment segment-grade-a" style="width: 98.3%;"></div>
+              <div class="bar-segment segment-retak" style="width: 1.7%;"></div>
+              <div class="bar-segment segment-abnormal" style="width: 0.0%;"></div>
             </div>
 
             <div class="quality-breakdown-legend">
@@ -1097,8 +1105,8 @@
                   <span class="legend-color-dot" style="background-color: var(--color-primary);"></span>
                   <span>Grade A (Utuh)</span>
                 </div>
-                <div class="legend-value" id="countGradeA">18.618</div>
-                <div class="legend-pct">98.4% Bersih &amp; Utuh</div>
+                <div class="legend-value" id="countGradeA">113</div>
+                <div class="legend-pct">98.3% Bersih &amp; Utuh</div>
               </div>
 
               <div class="legend-item">
@@ -1106,8 +1114,8 @@
                   <span class="legend-color-dot" style="background-color: var(--color-accent);"></span>
                   <span>Retak / Kerabang</span>
                 </div>
-                <div class="legend-value" id="countRetak">220</div>
-                <div class="legend-pct">1.2% Cangkang Tipis</div>
+                <div class="legend-value" id="countRetak">2</div>
+                <div class="legend-pct">1.7% Cangkang Tipis</div>
               </div>
 
               <div class="legend-item">
@@ -1115,8 +1123,8 @@
                   <span class="legend-color-dot" style="background-color: #EF4444;"></span>
                   <span>Telur Kotor</span>
                 </div>
-                <div class="legend-value" id="countKotor">82</div>
-                <div class="legend-pct">0.4% Abnormal / Kotor</div>
+                <div class="legend-value" id="countKotor">0</div>
+                <div class="legend-pct">0.0% Abnormal / Kotor</div>
               </div>
             </div>
           </article>
@@ -1278,13 +1286,16 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label" for="inpBroilerFeedSak">Pakan Terpakai (Sak)</label>
-          <input type="number" class="form-input" id="inpBroilerFeedSak" value="38" step="0.5" min="0" required>
+          <label class="form-label" for="inpBroilerFeedSak">
+            Pakan Terpakai (Sak)
+            <span class="label-hint" id="hintBroilerFeed">~11.5 kg (150 ekor)</span>
+          </label>
+          <input type="number" class="form-input" id="inpBroilerFeedSak" value="0.25" step="0.01" min="0" required>
         </div>
 
         <div class="form-group">
           <label class="form-label" for="inpBroilerMortality">Mortalitas / Kematian (Ekor)</label>
-          <input type="number" class="form-input" id="inpBroilerMortality" value="5" min="0" required>
+          <input type="number" class="form-input" id="inpBroilerMortality" value="0" min="0" required>
         </div>
 
         <div class="form-group">
@@ -1313,29 +1324,32 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label" for="inpLayerFeedKg">Pakan Harian (Kg)</label>
-          <input type="number" class="form-input" id="inpLayerFeedKg" value="2100" min="0" required>
+          <label class="form-label" for="inpLayerFeedKg">
+            Pakan Harian (Kg)
+            <span class="label-hint" id="hintLayerFeed">~111 gr/butir</span>
+          </label>
+          <input type="number" class="form-input" id="inpLayerFeedKg" value="13" min="0" step="0.1" required>
         </div>
 
         <div class="form-group">
           <label class="form-label" for="inpLayerEggGradeA">Telur Grade A Utuh (Butir)</label>
-          <input type="number" class="form-input" id="inpLayerEggGradeA" value="18650" min="0" required>
+          <input type="number" class="form-input" id="inpLayerEggGradeA" value="113" min="0" required>
         </div>
 
         <div class="form-group">
           <label class="form-label" for="inpLayerEggRetak">Telur Retak / Kerabang (Butir)</label>
-          <input type="number" class="form-input" id="inpLayerEggRetak" value="215" min="0" required>
+          <input type="number" class="form-input" id="inpLayerEggRetak" value="2" min="0" required>
         </div>
 
         <div class="form-group full-width">
           <label class="form-label" for="inpLayerEggKotor">Telur Kotor / Abnormal (Butir)</label>
-          <input type="number" class="form-input" id="inpLayerEggKotor" value="75" min="0" required>
+          <input type="number" class="form-input" id="inpLayerEggKotor" value="0" min="0" required>
         </div>
 
         <div class="form-group full-width">
           <div class="live-calc-box">
             <span class="calc-label">Kalkulasi Hen-Day (HDP) &amp; Total Rak:</span>
-            <span class="calc-val" id="calcHdpVal">94.7% (631.3 Tray)</span>
+            <span class="calc-val" id="calcHdpVal">94.3% (3.8 Tray)</span>
           </div>
         </div>
       </div>
@@ -1443,6 +1457,91 @@
       <div class="modal-footer">
         <button type="button" class="btn-secondary" onclick="window.appCloseKmsInputModal && window.appCloseKmsInputModal()">Batal</button>
         <button type="submit" class="btn-primary-action" id="btnSaveKmsInput">Simpan Data Timbangan</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- ======================================================================
+       14. Modal Atur Populasi & Blok Kandang (<dialog>)
+       ====================================================================== -->
+  <dialog class="custom-modal" id="populationModal" aria-labelledby="popModalTitle">
+    <div class="modal-header">
+      <div class="modal-title-group">
+        <h3 id="popModalTitle">Atur Populasi &amp; Blok Kandang</h3>
+        <p id="popModalSubTitle">Sesuaikan jumlah ekor riil yang dipelihara peternak (misal: 150 ekor, 125 ekor, dst).</p>
+      </div>
+      <button type="button" class="modal-close-btn" onclick="window.appClosePopulationModal && window.appClosePopulationModal()" aria-label="Tutup Dialog">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- Switcher Modul Kandang -->
+    <div class="modal-module-switcher">
+      <button type="button" class="modal-tab-btn active" id="popTabBroiler" onclick="window.appSwitchPopTab && window.appSwitchPopTab('broiler')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        <span>KUB Pedaging (Blok A)</span>
+      </button>
+      <button type="button" class="modal-tab-btn" id="popTabLayer" onclick="window.appSwitchPopTab && window.appSwitchPopTab('layer')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 2v3"/><path d="M12 21v1"/></svg>
+        <span>KUB Petelur (Blok B)</span>
+      </button>
+    </div>
+
+    <form method="dialog" id="formPopulation" class="modal-body" onsubmit="event.preventDefault(); window.appSavePopulation && window.appSavePopulation();">
+      
+      <!-- Preset Pilihan Cepat -->
+      <div class="pop-preset-section">
+        <label class="form-label" style="margin-bottom: 0.35rem; display: block;">Pilihan Cepat Skala Populasi Peternak:</label>
+        <div class="pop-chip-group" id="popChipGroup">
+          <button type="button" class="pop-chip" data-pop="50">50 Ekor</button>
+          <button type="button" class="pop-chip" data-pop="100">100 Ekor</button>
+          <button type="button" class="pop-chip" data-pop="125">125 Ekor</button>
+          <button type="button" class="pop-chip active" data-pop="150">150 Ekor</button>
+          <button type="button" class="pop-chip" data-pop="200">200 Ekor</button>
+          <button type="button" class="pop-chip" data-pop="500">500 Ekor</button>
+          <button type="button" class="pop-chip" data-pop="1000">1.000 Ekor</button>
+          <button type="button" class="pop-chip" data-pop="10000">10.000 Ekor</button>
+        </div>
+      </div>
+
+      <div class="form-grid" style="margin-top: 0.85rem;">
+        <div class="form-group full-width">
+          <label class="form-label" for="inpPopBlockName">Nama Blok / Kandang</label>
+          <input type="text" class="form-input" id="inpPopBlockName" value="Blok A - Kandang KUB Pedaging" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="inpPopInitial">
+            Populasi Awal Masuk (Ekor)
+            <span class="label-hint">DOC / Chick-in</span>
+          </label>
+          <input type="number" class="form-input" id="inpPopInitial" value="150" min="1" max="1000000" step="1" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="inpPopCurrent">
+            Populasi Hidup Saat Ini (Ekor)
+            <span class="label-hint">Setelah deplesi</span>
+          </label>
+          <input type="number" class="form-input" id="inpPopCurrent" value="147" min="1" max="1000000" step="1" required>
+        </div>
+
+        <div class="form-group full-width">
+          <div class="pop-summary-card">
+            <div class="pop-summary-header">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+              <span>Kalkulasi Otomatis Dampak Populasi:</span>
+            </div>
+            <div class="pop-summary-grid" id="popSummaryLiveContent">
+              <!-- Dynamically updated -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer" style="margin-top: 1.25rem;">
+        <button type="button" class="btn-secondary" onclick="window.appClosePopulationModal && window.appClosePopulationModal()">Batal</button>
+        <button type="submit" class="btn-primary-action" id="btnSavePopulation">Simpan &amp; Terapkan Populasi</button>
       </div>
     </form>
   </dialog>

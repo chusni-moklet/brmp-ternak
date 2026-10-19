@@ -7,7 +7,57 @@
 (function () {
   'use strict';
 
-  // State Aplikasi
+  // State Aplikasi & Pengaturan Populasi Peternak Riil (Bisa Diisi/Disesuaikan Manual)
+  const DEFAULT_FARM_SETTINGS = {
+    broiler: {
+      name: "Blok A - Kandang KUB Pedaging",
+      initialPopulation: 150,
+      currentPopulation: 147
+    },
+    layer: {
+      name: "Blok B - Baterai KUB Petelur",
+      initialPopulation: 125,
+      currentPopulation: 122
+    }
+  };
+
+  let farmSettings = loadFarmSettings();
+
+  function loadFarmSettings() {
+    try {
+      const saved = localStorage.getItem('brmp_farm_settings');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        return {
+          broiler: { ...DEFAULT_FARM_SETTINGS.broiler, ...(parsed.broiler || {}) },
+          layer: { ...DEFAULT_FARM_SETTINGS.layer, ...(parsed.layer || {}) }
+        };
+      }
+    } catch (e) {}
+    return JSON.parse(JSON.stringify(DEFAULT_FARM_SETTINGS));
+  }
+
+  function saveFarmSettingsToStorage() {
+    try {
+      localStorage.setItem('brmp_farm_settings', JSON.stringify(farmSettings));
+    } catch (e) {}
+  }
+
+  function syncFarmDataWithSettings() {
+    FARM_DATA.broiler.initialPopulation = farmSettings.broiler.initialPopulation;
+    FARM_DATA.broiler.currentPopulation = farmSettings.broiler.currentPopulation;
+    FARM_DATA.layer.initialPopulation = farmSettings.layer.initialPopulation;
+    FARM_DATA.layer.currentPopulation = farmSettings.layer.currentPopulation;
+    if (FARM_DATA.farmInfo && Array.isArray(FARM_DATA.farmInfo.blocks)) {
+      FARM_DATA.farmInfo.blocks[0].name = farmSettings.broiler.name;
+      FARM_DATA.farmInfo.blocks[0].capacity = farmSettings.broiler.initialPopulation;
+      FARM_DATA.farmInfo.blocks[0].currentPopulation = farmSettings.broiler.currentPopulation;
+      FARM_DATA.farmInfo.blocks[1].name = farmSettings.layer.name;
+      FARM_DATA.farmInfo.blocks[1].capacity = farmSettings.layer.initialPopulation;
+      FARM_DATA.farmInfo.blocks[1].currentPopulation = farmSettings.layer.currentPopulation;
+    }
+  }
+
   let currentModule = 'broiler'; // 'broiler' | 'layer'
   let broilerRecords = [...FARM_DATA.broiler.records];
   let layerRecords = [...FARM_DATA.layer.records];
@@ -21,6 +71,36 @@
   const pageHeading = document.getElementById('pageHeading');
   const pageSubHeading = document.getElementById('pageSubHeading');
   const blockSelect = document.getElementById('blockSelect');
+
+  // Populasi Elements
+  const headerPopulationDisplay = document.getElementById('headerPopulationDisplay');
+  const btnOpenPopulationModal = document.getElementById('btnOpenPopulationModal');
+  const populationModal = document.getElementById('populationModal');
+  const popTabBroiler = document.getElementById('popTabBroiler');
+  const popTabLayer = document.getElementById('popTabLayer');
+  const inpPopBlockName = document.getElementById('inpPopBlockName');
+  const inpPopInitial = document.getElementById('inpPopInitial');
+  const inpPopCurrent = document.getElementById('inpPopCurrent');
+  const popSummaryLiveContent = document.getElementById('popSummaryLiveContent');
+  const popChipGroup = document.getElementById('popChipGroup');
+  const formPopulation = document.getElementById('formPopulation');
+
+  // Broiler Metric DOM Elements
+  const broilerMortalityVal = document.getElementById('broilerMortalityVal');
+  const broilerMortalityCount = document.getElementById('broilerMortalityCount');
+  const broilerMortalitySubtext = document.getElementById('broilerMortalitySubtext');
+  const broilerReadyHarvestVal = document.getElementById('broilerReadyHarvestVal');
+  const broilerTonnageVal = document.getElementById('broilerTonnageVal');
+  const broilerFeedStockVal = document.getElementById('broilerFeedStockVal');
+
+  // Layer Metric DOM Elements
+  const layerEggVal = document.getElementById('layerEggVal');
+  const layerTraySubtext = document.getElementById('layerTraySubtext');
+  const layerFeedSubtext = document.getElementById('layerFeedSubtext');
+  const layerQualityStatusPill = document.getElementById('layerQualityStatusPill');
+  const countGradeA = document.getElementById('countGradeA');
+  const countRetak = document.getElementById('countRetak');
+  const countKotor = document.getElementById('countKotor');
 
   const btnQuickRecord = document.getElementById('btnQuickRecord');
   const btnInputHeader = document.getElementById('btnInputHeader');
@@ -39,6 +119,12 @@
 
   const formBroilerFields = document.getElementById('formBroilerFields');
   const formLayerFields = document.getElementById('formLayerFields');
+
+  const hintBroilerFeed = document.getElementById('hintBroilerFeed');
+  const hintLayerFeed = document.getElementById('hintLayerFeed');
+  const inpBroilerFeedSak = document.getElementById('inpBroilerFeedSak');
+  const inpBroilerMortality = document.getElementById('inpBroilerMortality');
+  const inpLayerFeedKg = document.getElementById('inpLayerFeedKg');
 
   const tbodyBroiler = document.getElementById('tbodyBroiler');
   const tbodyLayer = document.getElementById('tbodyLayer');
@@ -87,11 +173,15 @@
   // 1. Inisialisasi Aplikasi
   // =========================================================================
   function init() {
+    syncFarmDataWithSettings();
+    scaleRecordsForPopulation();
     renderBroilerTable();
     renderLayerTable();
     renderKmsModule();
     setupEventListeners();
     setupLiveCalculations();
+    setupPopulationControls();
+    updateAllPopulationUI();
     startIoTSimulation();
 
     // Check URL Hash for deep link
@@ -131,6 +221,8 @@
         mbarBtnLayer.classList.remove('active');
       }
 
+      updateAllPopulationUI();
+
       try {
         if (window.history && typeof window.history.replaceState === 'function') {
           window.history.replaceState(null, '', '#broiler');
@@ -158,12 +250,404 @@
         mbarBtnBroiler.classList.remove('active');
       }
 
+      updateAllPopulationUI();
+
       try {
         if (window.history && typeof window.history.replaceState === 'function') {
           window.history.replaceState(null, '', '#layer');
         }
       } catch (e) {}
     }
+  }
+
+  // =========================================================================
+  // 2b. Manajemen Populasi Kandang Riil & Kalkulasi Otomatis
+  // =========================================================================
+  function scaleRecordsForPopulation() {
+    const bPop = farmSettings.broiler.currentPopulation || 150;
+    broilerRecords = [
+      {
+        tanggal: "2026-10-17",
+        label: "Hari Ini",
+        umurHari: 33,
+        pakanSak: parseFloat(((bPop * 0.076) / 50).toFixed(2)),
+        pakanKg: Math.round(bPop * 0.076 * 10) / 10,
+        mortalitasEkor: 0,
+        bobotKg: 2.18,
+        fcrKumulatif: 1.48,
+        suhuRH: "26.8°C / 62%",
+        status: "Optimal"
+      },
+      {
+        tanggal: "2026-10-16",
+        label: "Kemarin",
+        umurHari: 32,
+        pakanSak: parseFloat(((bPop * 0.074) / 50).toFixed(2)),
+        pakanKg: Math.round(bPop * 0.074 * 10) / 10,
+        mortalitasEkor: 1,
+        bobotKg: 2.11,
+        fcrKumulatif: 1.49,
+        suhuRH: "27.0°C / 64%",
+        status: "Optimal"
+      },
+      {
+        tanggal: "2026-10-15",
+        label: "2 hari lalu",
+        umurHari: 31,
+        pakanSak: parseFloat(((bPop * 0.072) / 50).toFixed(2)),
+        pakanKg: Math.round(bPop * 0.072 * 10) / 10,
+        mortalitasEkor: 0,
+        bobotKg: 2.03,
+        fcrKumulatif: 1.50,
+        suhuRH: "27.2°C / 65%",
+        status: "Optimal"
+      },
+      {
+        tanggal: "2026-10-14",
+        label: "3 hari lalu",
+        umurHari: 30,
+        pakanSak: parseFloat(((bPop * 0.070) / 50).toFixed(2)),
+        pakanKg: Math.round(bPop * 0.070 * 10) / 10,
+        mortalitasEkor: 1,
+        bobotKg: 1.95,
+        fcrKumulatif: 1.51,
+        suhuRH: "26.9°C / 61%",
+        status: "Optimal"
+      },
+      {
+        tanggal: "2026-10-13",
+        label: "4 hari lalu",
+        umurHari: 29,
+        pakanSak: parseFloat(((bPop * 0.068) / 50).toFixed(2)),
+        pakanKg: Math.round(bPop * 0.068 * 10) / 10,
+        mortalitasEkor: 1,
+        bobotKg: 1.87,
+        fcrKumulatif: 1.51,
+        suhuRH: "26.7°C / 63%",
+        status: "Optimal"
+      }
+    ];
+
+    const lPop = farmSettings.layer.currentPopulation || 122;
+    const lEggs = Math.round(lPop * 0.946);
+    layerRecords = [
+      {
+        tanggal: "2026-10-17",
+        label: "Hari Ini",
+        umurMinggu: "Mgg ke-46",
+        totalButir: lEggs,
+        trayRak: `${(lEggs / 30).toFixed(1)} Tray`,
+        gradeA: Math.round(lEggs * 0.983),
+        retakAbnormal: Math.max(1, Math.round(lEggs * 0.017)),
+        pakanKg: Math.round((lEggs * 111) / 100) / 10,
+        hdpPersen: 94.6,
+        status: "Optimal"
+      },
+      {
+        tanggal: "2026-10-16",
+        label: "Kemarin",
+        umurMinggu: "Mgg ke-46",
+        totalButir: Math.round(lPop * 0.944),
+        trayRak: `${(Math.round(lPop * 0.944) / 30).toFixed(1)} Tray`,
+        gradeA: Math.round(lPop * 0.944 * 0.983),
+        retakAbnormal: Math.max(1, Math.round(lPop * 0.944 * 0.017)),
+        pakanKg: Math.round((Math.round(lPop * 0.944) * 111) / 100) / 10,
+        hdpPersen: 94.4,
+        status: "Optimal"
+      },
+      {
+        tanggal: "2026-10-15",
+        label: "2 hari lalu",
+        umurMinggu: "Mgg ke-46",
+        totalButir: Math.round(lPop * 0.942),
+        trayRak: `${(Math.round(lPop * 0.942) / 30).toFixed(1)} Tray`,
+        gradeA: Math.round(lPop * 0.942 * 0.982),
+        retakAbnormal: Math.max(1, Math.round(lPop * 0.942 * 0.018)),
+        pakanKg: Math.round((Math.round(lPop * 0.942) * 111) / 100) / 10,
+        hdpPersen: 94.2,
+        status: "Optimal"
+      },
+      {
+        tanggal: "2026-10-14",
+        label: "3 hari lalu",
+        umurMinggu: "Mgg ke-45",
+        totalButir: Math.round(lPop * 0.945),
+        trayRak: `${(Math.round(lPop * 0.945) / 30).toFixed(1)} Tray`,
+        gradeA: Math.round(lPop * 0.945 * 0.984),
+        retakAbnormal: Math.max(1, Math.round(lPop * 0.945 * 0.016)),
+        pakanKg: Math.round((Math.round(lPop * 0.945) * 111) / 100) / 10,
+        hdpPersen: 94.5,
+        status: "Optimal"
+      }
+    ];
+  }
+
+  function updateAllPopulationUI() {
+    const currentPop = currentModule === 'broiler'
+      ? farmSettings.broiler.currentPopulation
+      : farmSettings.layer.currentPopulation;
+
+    if (headerPopulationDisplay) {
+      headerPopulationDisplay.textContent = `${currentPop.toLocaleString('id-ID')} Ekor`;
+    }
+
+    if (blockSelect) {
+      const optA = blockSelect.querySelector('option[value="BLOK-A"]');
+      const optB = blockSelect.querySelector('option[value="BLOK-B"]');
+      const optAll = blockSelect.querySelector('option[value="ALL"]');
+
+      if (optA) optA.textContent = `${farmSettings.broiler.name} (${farmSettings.broiler.currentPopulation.toLocaleString('id-ID')} Ekor)`;
+      if (optB) optB.textContent = `${farmSettings.layer.name} (${farmSettings.layer.currentPopulation.toLocaleString('id-ID')} Ekor)`;
+      if (optAll) optAll.textContent = `Semua Blok (${(farmSettings.broiler.currentPopulation + farmSettings.layer.currentPopulation).toLocaleString('id-ID')} Ekor)`;
+    }
+
+    // Broiler KPIs
+    const bInit = farmSettings.broiler.initialPopulation;
+    const bCurr = farmSettings.broiler.currentPopulation;
+    const bMort = Math.max(0, bInit - bCurr);
+    const bMortPct = ((bMort / bInit) * 100).toFixed(2);
+
+    if (broilerMortalityVal) broilerMortalityVal.textContent = `${bMortPct}%`;
+    if (broilerMortalityCount) broilerMortalityCount.textContent = `(${bMort} ekor)`;
+    if (broilerMortalitySubtext) {
+      broilerMortalitySubtext.innerHTML = `Batas Toleransi: <strong>&lt; 3.0%</strong> &bull; ${parseFloat(bMortPct) <= 3.0 ? 'Kondisi Imunitas Prima' : 'Perlu Evaluasi Sanitasi'}`;
+    }
+
+    if (broilerReadyHarvestVal) {
+      broilerReadyHarvestVal.textContent = `${bCurr.toLocaleString('id-ID')} Ekor`;
+    }
+
+    if (broilerTonnageVal) {
+      const bwVal = parseFloat(document.getElementById('broilerBwVal')?.textContent) || 2.18;
+      const totalKg = bCurr * bwVal;
+      if (totalKg >= 1000) {
+        broilerTonnageVal.textContent = `${(totalKg / 1000).toFixed(2)} Ton`;
+      } else {
+        broilerTonnageVal.textContent = `${totalKg.toFixed(1)} Kg (${(totalKg / 1000).toFixed(2)} Ton)`;
+      }
+    }
+
+    if (broilerFeedStockVal) {
+      const dailySak = (bCurr * 0.076) / 50;
+      const stockSak = Math.max(2, Math.round(dailySak * 12));
+      const daysLeft = (stockSak / (dailySak || 0.1)).toFixed(1);
+      broilerFeedStockVal.textContent = `${stockSak} Sak (Cukup ${daysLeft} Hari)`;
+    }
+
+    // Layer KPIs
+    const lCurr = farmSettings.layer.currentPopulation;
+    const lEggs = Math.round(lCurr * 0.946);
+    const lTray = (lEggs / 30).toFixed(1);
+    const lGradeA = Math.round(lEggs * 0.983);
+    const lRetak = Math.max(1, Math.round(lEggs * 0.017));
+    const lKotor = Math.max(0, lEggs - lGradeA - lRetak);
+    const lFeedKg = ((lEggs * 111) / 1000).toFixed(1);
+
+    if (layerEggVal) layerEggVal.textContent = lEggs.toLocaleString('id-ID');
+    if (layerTraySubtext) layerTraySubtext.innerHTML = `Konversi Rak Telur: <strong>${lTray} Tray</strong> (30 butir/tray)`;
+    if (layerFeedSubtext) layerFeedSubtext.innerHTML = `Total Pakan: <strong>${lFeedKg} kg</strong> &bull; Target Standar: 111 gr/butir`;
+
+    if (countGradeA) countGradeA.textContent = lGradeA.toLocaleString('id-ID');
+    if (countRetak) countRetak.textContent = lRetak.toLocaleString('id-ID');
+    if (countKotor) countKotor.textContent = lKotor.toLocaleString('id-ID');
+    if (layerQualityStatusPill) layerQualityStatusPill.textContent = `Total: ${lEggs.toLocaleString('id-ID')} Butir`;
+
+    // Input Modal hints & suggestions
+    if (hintBroilerFeed) {
+      hintBroilerFeed.textContent = `~${(bCurr * 0.076).toFixed(1)} kg (${bCurr} ekor)`;
+    }
+  }
+
+  let activePopModalTab = 'broiler';
+
+  function setupPopulationControls() {
+    if (btnOpenPopulationModal) {
+      btnOpenPopulationModal.addEventListener('click', () => openPopulationModal());
+    }
+
+    if (popChipGroup) {
+      popChipGroup.addEventListener('click', (e) => {
+        const btn = e.target.closest('.pop-chip');
+        if (!btn) return;
+        const popVal = parseInt(btn.dataset.pop, 10);
+        if (!popVal) return;
+
+        popChipGroup.querySelectorAll('.pop-chip').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+
+        if (inpPopInitial) inpPopInitial.value = popVal;
+        if (inpPopCurrent) {
+          const currEst = Math.max(1, Math.round(popVal * 0.98));
+          inpPopCurrent.value = currEst;
+        }
+        updatePopSummaryPreview();
+      });
+    }
+
+    if (inpPopInitial) {
+      inpPopInitial.addEventListener('input', () => {
+        const val = parseInt(inpPopInitial.value, 10) || 0;
+        if (popChipGroup) {
+          popChipGroup.querySelectorAll('.pop-chip').forEach(c => {
+            if (parseInt(c.dataset.pop, 10) === val) {
+              c.classList.add('active');
+            } else {
+              c.classList.remove('active');
+            }
+          });
+        }
+        updatePopSummaryPreview();
+      });
+    }
+
+    if (inpPopCurrent) {
+      inpPopCurrent.addEventListener('input', updatePopSummaryPreview);
+    }
+
+    if (formPopulation) {
+      formPopulation.addEventListener('submit', (e) => {
+        e.preventDefault();
+        savePopulation();
+      });
+    }
+
+    if (populationModal) {
+      populationModal.addEventListener('click', (e) => {
+        if (e.target === populationModal) {
+          closePopulationModal();
+        }
+      });
+    }
+  }
+
+  function openPopulationModal(mod) {
+    activePopModalTab = (mod === 'broiler' || mod === 'layer') ? mod : currentModule;
+    switchPopTab(activePopModalTab);
+
+    if (!populationModal) return;
+    try {
+      if (typeof populationModal.showModal === 'function') {
+        if (!populationModal.open) populationModal.showModal();
+      } else {
+        populationModal.setAttribute('open', '');
+      }
+    } catch (err) {
+      populationModal.setAttribute('open', '');
+    }
+  }
+
+  function closePopulationModal() {
+    if (!populationModal) return;
+    try {
+      if (typeof populationModal.close === 'function') {
+        if (populationModal.open) populationModal.close();
+      }
+    } catch (err) {}
+    populationModal.removeAttribute('open');
+  }
+
+  function switchPopTab(mod) {
+    activePopModalTab = mod;
+    if (popTabBroiler && popTabLayer) {
+      if (mod === 'broiler') {
+        popTabBroiler.classList.add('active');
+        popTabLayer.classList.remove('active');
+      } else {
+        popTabLayer.classList.add('active');
+        popTabBroiler.classList.remove('active');
+      }
+    }
+
+    const currentConfig = farmSettings[mod];
+    if (inpPopBlockName) inpPopBlockName.value = currentConfig.name;
+    if (inpPopInitial) inpPopInitial.value = currentConfig.initialPopulation;
+    if (inpPopCurrent) inpPopCurrent.value = currentConfig.currentPopulation;
+
+    if (popChipGroup) {
+      popChipGroup.querySelectorAll('.pop-chip').forEach(c => {
+        if (parseInt(c.dataset.pop, 10) === currentConfig.initialPopulation) {
+          c.classList.add('active');
+        } else {
+          c.classList.remove('active');
+        }
+      });
+    }
+
+    updatePopSummaryPreview();
+  }
+
+  function updatePopSummaryPreview() {
+    if (!popSummaryLiveContent) return;
+
+    const initVal = parseInt(inpPopInitial.value, 10) || 1;
+    const currVal = parseInt(inpPopCurrent.value, 10) || 1;
+    const mortEkor = Math.max(0, initVal - currVal);
+    const mortPct = ((mortEkor / initVal) * 100).toFixed(2);
+
+    if (activePopModalTab === 'broiler') {
+      const dailyFeedKg = (currVal * 0.076).toFixed(1);
+      const dailyFeedSak = ((currVal * 0.076) / 50).toFixed(2);
+      const harvestKg = (currVal * 2.18).toFixed(1);
+
+      popSummaryLiveContent.innerHTML = `
+        <div class="pop-summary-item">
+          <span class="pop-summary-label">Mortalitas Kumulatif</span>
+          <span class="pop-summary-val" style="color: ${parseFloat(mortPct) > 3 ? '#DC2626' : '#059669'};">${mortEkor} Ekor (${mortPct}%)</span>
+        </div>
+        <div class="pop-summary-item">
+          <span class="pop-summary-label">Kebutuhan Pakan Harian</span>
+          <span class="pop-summary-val">~${dailyFeedKg} Kg (${dailyFeedSak} Sak)</span>
+        </div>
+        <div class="pop-summary-item">
+          <span class="pop-summary-label">Estimasi Bobot Panen Total</span>
+          <span class="pop-summary-val">~${harvestKg} Kg (@2.18 kg)</span>
+        </div>
+      `;
+    } else {
+      const dailyEggs = Math.round(currVal * 0.946);
+      const tray = (dailyEggs / 30).toFixed(1);
+      const dailyFeedKg = ((dailyEggs * 111) / 1000).toFixed(1);
+
+      popSummaryLiveContent.innerHTML = `
+        <div class="pop-summary-item">
+          <span class="pop-summary-label">Mortalitas Kumulatif</span>
+          <span class="pop-summary-val" style="color: ${parseFloat(mortPct) > 3 ? '#DC2626' : '#059669'};">${mortEkor} Ekor (${mortPct}%)</span>
+        </div>
+        <div class="pop-summary-item">
+          <span class="pop-summary-label">Kebutuhan Pakan Harian</span>
+          <span class="pop-summary-val">~${dailyFeedKg} Kg/hari</span>
+        </div>
+        <div class="pop-summary-item">
+          <span class="pop-summary-label">Estimasi Telur Harian (HDP 94.6%)</span>
+          <span class="pop-summary-val">~${dailyEggs} Butir (${tray} Tray)</span>
+        </div>
+      `;
+    }
+  }
+
+  function savePopulation() {
+    const blockName = (inpPopBlockName && inpPopBlockName.value.trim()) || (activePopModalTab === 'broiler' ? "Blok A - Kandang KUB Pedaging" : "Blok B - Baterai KUB Petelur");
+    const initVal = Math.max(1, parseInt(inpPopInitial.value, 10) || 100);
+    let currVal = Math.max(1, parseInt(inpPopCurrent.value, 10) || initVal);
+
+    if (currVal > initVal) {
+      currVal = initVal;
+      if (inpPopCurrent) inpPopCurrent.value = currVal;
+    }
+
+    farmSettings[activePopModalTab].name = blockName;
+    farmSettings[activePopModalTab].initialPopulation = initVal;
+    farmSettings[activePopModalTab].currentPopulation = currVal;
+
+    saveFarmSettingsToStorage();
+    syncFarmDataWithSettings();
+    scaleRecordsForPopulation();
+    renderBroilerTable();
+    renderLayerTable();
+    updateAllPopulationUI();
+
+    closePopulationModal();
+    showToast(`Populasi ${activePopModalTab === 'broiler' ? 'KUB Pedaging' : 'KUB Petelur'} berhasil disimpan: ${currVal.toLocaleString('id-ID')} ekor!`);
   }
 
   // =========================================================================
@@ -224,19 +708,52 @@
   function setModalModule(mod) {
     if (mod === 'broiler') {
       modalTitle.textContent = 'Input Harian Kandang — Modul KUB Pedaging';
-      modalSubTitle.textContent = 'Catat pakan, sampling bobot (BW), dan deplesi mortalitas hari ini.';
+      modalSubTitle.textContent = `Catat pakan, sampling bobot (BW), dan deplesi mortalitas populasi ${farmSettings.broiler.currentPopulation.toLocaleString('id-ID')} ekor.`;
       formBroilerFields.style.display = 'grid';
       formLayerFields.style.display = 'none';
       if (modalTabBroiler) modalTabBroiler.classList.add('active');
       if (modalTabLayer) modalTabLayer.classList.remove('active');
+
+      const bCurr = farmSettings.broiler.currentPopulation;
+      const estDailyKg = (bCurr * 0.076);
+      const estDailySak = (estDailyKg / 50).toFixed(2);
+      if (hintBroilerFeed) hintBroilerFeed.textContent = `~${estDailyKg.toFixed(1)} kg (${bCurr} ekor)`;
+      const inpBroilerFeedSak = document.getElementById('inpBroilerFeedSak');
+      if (inpBroilerFeedSak && (!inpBroilerFeedSak.value || parseFloat(inpBroilerFeedSak.value) > 20)) {
+        inpBroilerFeedSak.value = estDailySak;
+      }
+      const inpBroilerMort = document.getElementById('inpBroilerMortality');
+      if (inpBroilerMort && !inpBroilerMort.value) inpBroilerMort.value = 0;
+
       updateBroilerCalc();
     } else {
       modalTitle.textContent = 'Input Panen Harian — Modul KUB Petelur';
-      modalSubTitle.textContent = 'Catat hasil panen telur utuh, retak, kotor, dan pakan harian.';
+      modalSubTitle.textContent = `Catat hasil panen telur utuh, retak, kotor, dan pakan populasi ${farmSettings.layer.currentPopulation.toLocaleString('id-ID')} ekor.`;
       formBroilerFields.style.display = 'none';
       formLayerFields.style.display = 'grid';
       if (modalTabLayer) modalTabLayer.classList.add('active');
       if (modalTabBroiler) modalTabBroiler.classList.remove('active');
+
+      const lCurr = farmSettings.layer.currentPopulation;
+      const estDailyEggs = Math.round(lCurr * 0.946);
+      const estGradeA = Math.round(estDailyEggs * 0.98);
+      const estRetak = Math.max(1, estDailyEggs - estGradeA);
+      const estDailyFeedKg = ((estDailyEggs * 111) / 1000).toFixed(1);
+
+      const inpLayerFeedKg = document.getElementById('inpLayerFeedKg');
+      if (inpLayerFeedKg && (!inpLayerFeedKg.value || parseFloat(inpLayerFeedKg.value) > 500)) {
+        inpLayerFeedKg.value = estDailyFeedKg;
+      }
+      if (inpLayerEggGradeA && (!inpLayerEggGradeA.value || parseInt(inpLayerEggGradeA.value, 10) > 1000)) {
+        inpLayerEggGradeA.value = estGradeA;
+      }
+      if (inpLayerEggRetak && (!inpLayerEggRetak.value || parseInt(inpLayerEggRetak.value, 10) > 100)) {
+        inpLayerEggRetak.value = estRetak;
+      }
+      if (inpLayerEggKotor && (!inpLayerEggKotor.value || parseInt(inpLayerEggKotor.value, 10) > 100)) {
+        inpLayerEggKotor.value = 0;
+      }
+
       updateLayerCalc();
     }
   }
@@ -295,7 +812,7 @@
     const kotor = parseInt(inpLayerEggKotor.value, 10) || 0;
     const total = gradeA + retak + kotor;
     const tray = (total / 30).toFixed(1);
-    const population = FARM_DATA.layer.currentPopulation || 9780;
+    const population = farmSettings?.layer?.currentPopulation || FARM_DATA.layer.currentPopulation || 122;
     const hdp = ((total / population) * 100).toFixed(1);
 
     calcHdpVal.textContent = `${hdp}% (${tray} Tray)`;
@@ -311,10 +828,17 @@
 
     if (isBroilerActive) {
       const age = parseInt(document.getElementById('inpBroilerAge').value, 10) || 34;
-      const feedSak = parseFloat(document.getElementById('inpBroilerFeedSak').value) || 38;
-      const mortality = parseInt(document.getElementById('inpBroilerMortality').value, 10) || 5;
+      const feedSak = parseFloat(document.getElementById('inpBroilerFeedSak').value) || 0.23;
+      const mortality = parseInt(document.getElementById('inpBroilerMortality').value, 10) || 0;
       const weight = parseFloat(document.getElementById('inpBroilerWeight').value) || 2.25;
       const tempRh = document.getElementById('inpBroilerTempRh').value || '26.8°C / 62%';
+
+      if (mortality > 0) {
+        farmSettings.broiler.currentPopulation = Math.max(0, farmSettings.broiler.currentPopulation - mortality);
+        saveFarmSettingsToStorage();
+        syncFarmDataWithSettings();
+        updateAllPopulationUI();
+      }
 
       const newRecord = {
         tanggal: dateStr,
@@ -341,13 +865,14 @@
       showToast(`Data harian KUB Pedaging hari ke-${age} berhasil disimpan!`);
     } else {
       const ageWeek = document.getElementById('inpLayerAgeWeek').value || 'Mgg ke-46';
-      const feedKg = parseFloat(document.getElementById('inpLayerFeedKg').value) || 2100;
-      const gradeA = parseInt(inpLayerEggGradeA.value, 10) || 18650;
-      const retak = parseInt(inpLayerEggRetak.value, 10) || 215;
-      const kotor = parseInt(inpLayerEggKotor.value, 10) || 75;
+      const feedKg = parseFloat(document.getElementById('inpLayerFeedKg').value) || 13;
+      const gradeA = parseInt(inpLayerEggGradeA.value, 10) || 0;
+      const retak = parseInt(inpLayerEggRetak.value, 10) || 0;
+      const kotor = parseInt(inpLayerEggKotor.value, 10) || 0;
       const total = gradeA + retak + kotor;
       const tray = (total / 30).toFixed(1);
-      const hdp = ((total / 9780) * 100).toFixed(1);
+      const popLayer = farmSettings?.layer?.currentPopulation || 122;
+      const hdp = ((total / popLayer) * 100).toFixed(1);
 
       const newRecord = {
         tanggal: dateStr,
@@ -366,13 +891,17 @@
       renderLayerTable();
 
       // Update KPI Top Card live
-      document.getElementById('layerHdpVal').textContent = `${hdp}%`;
-      document.getElementById('layerEggVal').textContent = total.toLocaleString('id-ID');
+      const layerHdpEl = document.getElementById('layerHdpVal');
+      if (layerHdpEl) layerHdpEl.textContent = `${hdp}%`;
+      if (layerEggVal) layerEggVal.textContent = total.toLocaleString('id-ID');
+      if (layerTraySubtext) layerTraySubtext.innerHTML = `Konversi Rak Telur: <strong>${tray} Tray</strong> (30 butir/tray)`;
+      if (layerFeedSubtext) layerFeedSubtext.innerHTML = `Total Pakan: <strong>${feedKg} kg</strong> &bull; Harian Terkini`;
 
       // Update quality counters
-      document.getElementById('countGradeA').textContent = gradeA.toLocaleString('id-ID');
-      document.getElementById('countRetak').textContent = retak.toLocaleString('id-ID');
-      document.getElementById('countKotor').textContent = kotor.toLocaleString('id-ID');
+      if (countGradeA) countGradeA.textContent = gradeA.toLocaleString('id-ID');
+      if (countRetak) countRetak.textContent = retak.toLocaleString('id-ID');
+      if (countKotor) countKotor.textContent = kotor.toLocaleString('id-ID');
+      if (layerQualityStatusPill) layerQualityStatusPill.textContent = `Total: ${total.toLocaleString('id-ID')} Butir`;
 
       showToast('Data panen telur Layer berhasil disimpan!');
     }
@@ -1013,14 +1542,20 @@
     if (blockSelect) {
       blockSelect.addEventListener('change', (e) => {
         const val = e.target.value;
+        if (val === 'MANUAL_POPULATION') {
+          // Revert dropdown display to active module value so it stays consistent
+          blockSelect.value = currentModule === 'broiler' ? 'BLOK-A' : 'BLOK-B';
+          openPopulationModal(currentModule);
+          return;
+        }
         if (val === 'BLOK-A') {
           switchModule('broiler');
-          showToast('Beralih ke Blok A: Kandang KUB Pedaging');
+          showToast(`Beralih ke Blok A: ${farmSettings.broiler.name} (${farmSettings.broiler.currentPopulation.toLocaleString('id-ID')} Ekor)`);
         } else if (val === 'BLOK-B') {
           switchModule('layer');
-          showToast('Beralih ke Blok B: Baterai KUB Petelur');
+          showToast(`Beralih ke Blok B: ${farmSettings.layer.name} (${farmSettings.layer.currentPopulation.toLocaleString('id-ID')} Ekor)`);
         } else {
-          showToast('Menampilkan seluruh populasi kandang abah suar Farm');
+          showToast(`Menampilkan seluruh populasi kandang: ${(farmSettings.broiler.currentPopulation + farmSettings.layer.currentPopulation).toLocaleString('id-ID')} Ekor`);
         }
       });
     }
@@ -1163,6 +1698,22 @@
 
   window.appSetModalModule = function (mod) {
     setModalModule(mod);
+  };
+
+  window.appOpenPopulationModal = function (mod) {
+    openPopulationModal(mod);
+  };
+
+  window.appClosePopulationModal = function () {
+    closePopulationModal();
+  };
+
+  window.appSwitchPopTab = function (mod) {
+    switchPopTab(mod);
+  };
+
+  window.appSavePopulation = function () {
+    savePopulation();
   };
 
   window.appSelectKmsBatch = function (batchId) {
